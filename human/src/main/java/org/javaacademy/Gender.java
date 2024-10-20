@@ -1,4 +1,4 @@
-package org.example;
+package org.javaacademy;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

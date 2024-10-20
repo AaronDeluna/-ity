@@ -4,15 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="30571e39-7dc2-4324-8f71-939ae5352445" name="Changes" comment="[ЗАДАЧА-№2] Внутри проекта создан модуль - Human.">
-      <change afterPath="$PROJECT_DIR$/human/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/human/src/main/java/org/example/Gender.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/human/src/main/java/org/example/Human.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/checkstyle-idea.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/checkstyle-idea.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+    <list default="true" id="30571e39-7dc2-4324-8f71-939ae5352445" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/human/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/human/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/human/src/main/java/org/example/Gender.java" beforeDir="false" afterPath="$PROJECT_DIR$/human/src/main/java/org/javaacademy/Gender.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/human/src/main/java/org/example/Human.java" beforeDir="false" afterPath="$PROJECT_DIR$/human/src/main/java/org/javaacademy/Human.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,6 +30,9 @@
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GithubDefaultAccount">
+    <option name="defaultAccountId" value="063086fd-0aef-4d6a-8aca-e5ca393ce58f" />
   </component>
   <component name="ProjectColorInfo"><![CDATA[{
   "associatedIndex": 1
@@ -67,6 +66,15 @@
       <option name="presentableId" value="Default" />
       <updated>1729357642523</updated>
     </task>
+    <task id="LOCAL-00001" summary="[ЗАДАЧА-№2] Внутри проекта создан модуль - Human.">
+      <option name="closed" value="true" />
+      <created>1729380348272</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1729380348272</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">

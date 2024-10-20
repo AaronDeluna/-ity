@@ -1,4 +1,4 @@
-package org.example;
+package org.javaacademy;
 
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -12,8 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Getter
-@Setter
-@ToString(exclude = "children")
+@Setter(value = AccessLevel.PRIVATE)
+@ToString
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Human {
     @NonNull
@@ -27,6 +27,7 @@ public class Human {
 
     Human father;
     Human mother;
+    @ToString.Exclude
     List<Human> children = new ArrayList<>();
 
     /**
@@ -37,22 +38,36 @@ public class Human {
         return StringUtils.capitalize(text.toLowerCase());
     }
 
-    public Human(@NonNull String name, @NonNull String surname, @NonNull String patronymic, @NonNull Gender gender) {
-        this.name = capitalize(name);
-        this.surname = capitalize(surname);
-        this.patronymic = capitalize(patronymic);
+    /**
+     * Функция проверки строк на путоту.
+     */
+
+    private void checkIsEmptyString(String str, String fieldName) {
+        if(str.trim().isEmpty()){
+            throw new IllegalArgumentException
+                    (fieldName + " не должно быть пустым или состоять только из пробелов.");
+        }
+    }
+
+    public Human(String name, String surname, String patronymic, Gender gender) {
+        setName(name);
+        setSurname(surname);
+        setPatronymic(patronymic);
         this.gender = gender;
     }
 
-    public void setName(@NonNull String name) {
+    private void setName(@NonNull String name) {
+        checkIsEmptyString(name, "Имя");
         this.name = capitalize(name);
     }
 
-    public void setSurname(@NonNull String surname) {
+    private void setSurname(@NonNull String surname) {
+        checkIsEmptyString(surname, "Фамилия");
         this.surname = capitalize(surname);
     }
 
-    public void setPatronymic(@NonNull String patronymic) {
+    private void setPatronymic(@NonNull String patronymic) {
+        checkIsEmptyString(patronymic, "Отчество");
         this.patronymic = capitalize(patronymic);
     }
 
@@ -60,15 +75,11 @@ public class Human {
      * Функция указания родителей.
      */
 
-    public void setParents(@NonNull Human father, @NonNull Human mother) {
-        if (father.gender == Gender.MALE && mother.gender == Gender.FEMALE) {
-            this.father = father;
-            this.mother = mother;
-            father.getChildren().add(this);
-            mother.getChildren().add(this);
-        } else {
-            throw new IllegalArgumentException("Родители должны быть противоположных полов!");
-        }
+    private void setParents(@NonNull Human father, @NonNull Human mother) {
+        setFather(father);
+        setMother(mother);
+        father.getChildren().add(this);
+        mother.getChildren().add(this);
     }
 
     /**
