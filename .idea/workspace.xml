@@ -6,9 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="30571e39-7dc2-4324-8f71-939ae5352445" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/human/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/human/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/human/src/main/java/org/example/Gender.java" beforeDir="false" afterPath="$PROJECT_DIR$/human/src/main/java/org/javaacademy/Gender.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/human/src/main/java/org/example/Human.java" beforeDir="false" afterPath="$PROJECT_DIR$/human/src/main/java/org/javaacademy/Human.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/human/src/main/java/org/javaacademy/Human.java" beforeDir="false" afterPath="$PROJECT_DIR$/human/src/main/java/org/javaacademy/Human.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -74,7 +72,15 @@
       <option name="project" value="LOCAL" />
       <updated>1729380348272</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="[ФИКС] [ЗАДАЧА-#2]  исправление ошибок в классе Human.">
+      <option name="closed" value="true" />
+      <created>1729422209105</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1729422209106</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -90,6 +96,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="[ЗАДАЧА-№2] Внутри проекта создан модуль - Human." />
-    <option name="LAST_COMMIT_MESSAGE" value="[ЗАДАЧА-№2] Внутри проекта создан модуль - Human." />
+    <MESSAGE value="[ФИКС] [ЗАДАЧА-#2]  исправление ошибок в классе Human." />
+    <option name="LAST_COMMIT_MESSAGE" value="[ФИКС] [ЗАДАЧА-#2]  исправление ошибок в классе Human." />
   </component>
 </project>

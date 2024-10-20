@@ -4,7 +4,6 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
-import lombok.ToString;
 import lombok.experimental.FieldDefaults;
 import org.apache.commons.lang3.StringUtils;
 
@@ -13,7 +12,6 @@ import java.util.List;
 
 @Getter
 @Setter(value = AccessLevel.PRIVATE)
-@ToString
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Human {
     @NonNull
@@ -27,7 +25,6 @@ public class Human {
 
     Human father;
     Human mother;
-    @ToString.Exclude
     List<Human> children = new ArrayList<>();
 
     /**
@@ -42,10 +39,10 @@ public class Human {
      * Функция проверки строк на путоту.
      */
 
-    private void checkIsEmptyString(String str, String fieldName) {
-        if(str.trim().isEmpty()){
+    private void checkIsEmptyString(String str) {
+        if(str.isBlank()){
             throw new IllegalArgumentException
-                    (fieldName + " не должно быть пустым или состоять только из пробелов.");
+                    ("Поля не должны быть пустыми или состоять только из пробелов.");
         }
     }
 
@@ -56,18 +53,18 @@ public class Human {
         this.gender = gender;
     }
 
-    private void setName(@NonNull String name) {
-        checkIsEmptyString(name, "Имя");
+    private void setName(String name) {
+        checkIsEmptyString(name);
         this.name = capitalize(name);
     }
 
-    private void setSurname(@NonNull String surname) {
-        checkIsEmptyString(surname, "Фамилия");
+    private void setSurname(String surname) {
+        checkIsEmptyString(surname);
         this.surname = capitalize(surname);
     }
 
-    private void setPatronymic(@NonNull String patronymic) {
-        checkIsEmptyString(patronymic, "Отчество");
+    private void setPatronymic(String patronymic) {
+        checkIsEmptyString(patronymic);
         this.patronymic = capitalize(patronymic);
     }
 
