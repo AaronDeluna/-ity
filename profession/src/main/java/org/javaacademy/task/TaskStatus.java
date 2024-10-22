@@ -10,8 +10,8 @@ import lombok.experimental.FieldDefaults;
 @RequiredArgsConstructor
 @FieldDefaults(makeFinal = true)
 public enum TaskStatus {
-    NOT_COMPLETED("Сделано"),
-    COMPLETED("Не сделано");
+    NOT_COMPLETED("Не сделана"),
+    COMPLETED("Сделана");
 
     String description;
 }

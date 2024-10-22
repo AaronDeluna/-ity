@@ -11,6 +11,8 @@ public class Programmer extends Employee {
     private static final BigDecimal MIN_HOURLY_RATE = BigDecimal.valueOf(1500.0);
     private static final BigDecimal MAX_HOURLY_RATE = BigDecimal.valueOf(2000.0);
 
+    private Task task;
+
     public Programmer(String name, String surname, String patronymic, Gender gender) {
         super(name, surname, patronymic, gender);
     }
@@ -33,6 +35,7 @@ public class Programmer extends Employee {
      */
 
     public void acceptTask(Task task) {
-        task.setStatus(TaskStatus.COMPLETED);
+        this.task = task;
+        this.task.setStatus(TaskStatus.COMPLETED);
     }
 }
