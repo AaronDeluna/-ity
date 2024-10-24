@@ -21,7 +21,7 @@ public class CivilRegistry {
 
     public CivilRegistry(String name) {
         this.name = name;
-        this.civilActionRecords = new ArrayList<CivilActionRecord>();
+        this.civilActionRecords = new ArrayList<>();
     }
 
     /*
