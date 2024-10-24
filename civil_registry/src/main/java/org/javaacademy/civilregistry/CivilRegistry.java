@@ -1,25 +1,25 @@
 package org.javaacademy.civilregistry;
 
-import lombok.Getter;
-import lombok.Setter;
 import org.javaacademy.civilregistry.entity.CivilActionRecord;
 import org.javaacademy.civilregistry.entity.CivilActionType;
 import org.javaacademy.entity.Citizen;
 import org.javaacademy.entity.MaritalStatus;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.stream.Collectors;
 
 /*
     класс ЗАГСа
  */
-@Getter
-@Setter
+
 public class CivilRegistry {
     private final String name;
-    private Map<LocalDate, List<CivilActionRecord>> civilActionRecords = new TreeMap<>();
+    private final TreeMap<LocalDate, List<CivilActionRecord>> civilActionRecords = new TreeMap<>();
 
     public CivilRegistry(String name) {
         this.name = name;
@@ -28,9 +28,9 @@ public class CivilRegistry {
     /*
     метод регистрации новорожденного
     */
-    public void birthOfChild(Citizen child, Citizen father, Citizen mother, LocalDate dateRegistration) {
+    public void birthOfChild(Citizen child, Citizen father, Citizen mother, LocalDate date) {
         CivilActionRecord record = new CivilActionRecord(
-                dateRegistration,
+                date,
                 CivilActionType.BIRTH_REGISTRATION,
                 List.of(child, father, mother));
         addCivilActionRecord(record);
@@ -39,9 +39,9 @@ public class CivilRegistry {
     /*
     метод регистрации брака
     */
-    public void registrationMarriage(Citizen firstSpouse, Citizen secondSpouse, LocalDate dateRegistration) {
+    public void registrationMarriage(Citizen firstSpouse, Citizen secondSpouse, LocalDate date) {
         CivilActionRecord record = new CivilActionRecord(
-                dateRegistration,
+                date,
                 CivilActionType.WEDDING_REGISTRATION,
                 List.of(firstSpouse, secondSpouse));
         addCivilActionRecord(record);
@@ -54,9 +54,9 @@ public class CivilRegistry {
     /*
     метод расторжения брака
     */
-    public void registrationDivorce(Citizen firstSpouse, Citizen secondSpouse, LocalDate dateReistration) {
+    public void registrationDivorce(Citizen firstSpouse, Citizen secondSpouse, LocalDate date) {
         CivilActionRecord record = new CivilActionRecord(
-                dateReistration,
+                date,
                 CivilActionType.DIVORCE_REGISTRATION,
                 List.of(firstSpouse, secondSpouse));
         addCivilActionRecord(record);
@@ -70,8 +70,8 @@ public class CivilRegistry {
     метод добавления записи гражданского действия
     */
     private void addCivilActionRecord(CivilActionRecord record) {
-        civilActionRecords.merge(record.getDate(), List.of(record), (oldValue, newValue) -> {
-                    oldValue.add(record);
+        civilActionRecords.merge(record.getDate(), new ArrayList<>(List.of(record)), (oldValue, newValue) -> {
+                    oldValue.add(newValue.get(0));
                     return oldValue;
                 }
         );
@@ -80,18 +80,18 @@ public class CivilRegistry {
     /*
     Печать статистики ЗАГСа на дату
     */
-    public void statistic(LocalDate date) {
-        List<CivilActionRecord> recordsDay = civilActionRecords.stream().filter(r -> r.getDate().isEqual(date)).toList();
-        int marriageCount = (int) recordsDay.stream().
-                filter(r -> r.getCivilActionType() == CivilActionType.WEDDING_REGISTRATION).count();
-        int divorceCount = (int) recordsDay.stream().
-                filter(r -> r.getCivilActionType() == CivilActionType.DIVORCE_REGISTRATION).count();
-        int birthCount = (int) recordsDay.stream().
-                filter(r -> r.getCivilActionType() == CivilActionType.BIRTH_REGISTRATION).count();
-        System.out.println("Статистика по ЗАГС: " + name);
-        System.out.println("Дата " + date + " количество свадеб - " + marriageCount + ", количество разводов - " +
-                divorceCount + ", количество рождений - " + birthCount);
+    public void statisticsForDate(LocalDate date) {
+        Map<CivilActionType, Long> countCivilActionByType = civilActionRecords.get(date).stream()
+                .collect(Collectors.groupingBy(
+                        CivilActionRecord::getCivilActionType,
+                        Collectors.counting()
+                ));
+
+        System.out.printf("Статистика по ЗАГС: %s\n", this.name);
+        System.out.printf("Дата %s: количество свадеб - %d, количество разводов - %d, количество рождений - %d\n",
+                date.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")),
+                countCivilActionByType.getOrDefault(CivilActionType.WEDDING_REGISTRATION, 0L),
+                countCivilActionByType.getOrDefault(CivilActionType.DIVORCE_REGISTRATION, 0L),
+                countCivilActionByType.getOrDefault(CivilActionType.BIRTH_REGISTRATION, 0L));
     }
-
-
 }

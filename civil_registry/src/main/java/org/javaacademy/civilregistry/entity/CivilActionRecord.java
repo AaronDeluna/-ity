@@ -6,9 +6,10 @@ import org.javaacademy.entity.Citizen;
 import java.time.LocalDate;
 import java.util.List;
 
-@Getter
 public class CivilActionRecord {
+    @Getter
     private final LocalDate date;
+    @Getter
     private final CivilActionType civilActionType;
     private final List<Citizen> citizens;
 

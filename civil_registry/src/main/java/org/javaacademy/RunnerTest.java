@@ -1,13 +1,13 @@
 package org.javaacademy;
 
-import org.javaacademy.entity.Citizen;
 import org.javaacademy.civilregistry.CivilRegistry;
+import org.javaacademy.entity.Citizen;
 
 import java.time.LocalDate;
 
 public class RunnerTest {
     public static void main(String[] args) {
-        CivilRegistry civilRegistry = new CivilRegistry ("TEST_ZAGS");
+        CivilRegistry civilRegistry = new CivilRegistry("TEST_ZAGS");
         Citizen citizen1 = new Citizen("александр", "пушкин", "СЕргеевич", Gender.MALE);
         Citizen citizen2 = new Citizen("ЕЛЕНА", "петрова", "Петровна", Gender.FEMALE);
         Citizen citizen3 = new Citizen("Антонина  ", " Иванова", "НикоЛаевна", Gender.FEMALE);
@@ -23,6 +23,7 @@ public class RunnerTest {
         civilRegistry.birthOfChild(child2, citizen3, citizen4, LocalDate.now());
         civilRegistry.birthOfChild(child3, citizen3, citizen4, LocalDate.now());
 
-        civilRegistry.statistic(LocalDate.now());
+        civilRegistry.statisticsForDate(LocalDate.now());
+
     }
 }

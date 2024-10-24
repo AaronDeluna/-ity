@@ -23,6 +23,6 @@ public class RunnerProm {
         civilRegistry.birthOfChild(child2, citizen3, citizen4, LocalDate.now());
         civilRegistry.birthOfChild(child3, citizen3, citizen4, LocalDate.now());
 
-        civilRegistry.statistic(LocalDate.now());
+        civilRegistry.statisticsForDate(LocalDate.now());
     }
 }
