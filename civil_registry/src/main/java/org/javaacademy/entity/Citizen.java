@@ -1,4 +1,4 @@
-package org.javaacademy.citizen;
+package org.javaacademy.entity;
 
 import lombok.Getter;
 import lombok.NonNull;
@@ -10,9 +10,8 @@ import org.javaacademy.Human;
 @Setter
 public class Citizen extends Human {
     @NonNull
-    private MarriageStatus marriageStatus;
+    private MaritalStatus maritalStatus;
     private Citizen spouse;
-
 
     public Citizen(String name, String surname, String patronymic, Gender gender) {
         super(name, surname, patronymic, gender);

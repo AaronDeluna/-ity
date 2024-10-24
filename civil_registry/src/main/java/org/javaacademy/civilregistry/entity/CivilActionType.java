@@ -1,11 +1,11 @@
-package org.javaacademy.civilregistry;
+package org.javaacademy.civilregistry.entity;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 @Getter
 @RequiredArgsConstructor
-public enum TypeCivilAction {
+public enum CivilActionType {
     BIRTH_REGISTRATION("регистрация рождения"),
     WEDDING_REGISTRATION("регистрация свадьбы"),
     DIVORCE_REGISTRATION("регистрация развода");

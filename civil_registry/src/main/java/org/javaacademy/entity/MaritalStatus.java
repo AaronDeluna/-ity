@@ -1,11 +1,11 @@
-package org.javaacademy.citizen;
+package org.javaacademy.entity;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 @Getter
 @RequiredArgsConstructor
-public enum MarriageStatus {
+public enum MaritalStatus {
     DIVORCED("разведен/а"),
     MARRIED("в браке"),
     SINGLE("не женат/не замужем");

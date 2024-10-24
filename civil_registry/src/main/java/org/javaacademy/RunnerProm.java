@@ -1,6 +1,6 @@
 package org.javaacademy;
 
-import org.javaacademy.citizen.Citizen;
+import org.javaacademy.entity.Citizen;
 import org.javaacademy.civilregistry.CivilRegistry;
 
 import java.time.LocalDate;
@@ -19,9 +19,9 @@ public class RunnerProm {
         civilRegistry.registrationMarriage(citizen1, citizen2, LocalDate.now());
         civilRegistry.registrationDivorce(citizen1, citizen2, LocalDate.now());
         civilRegistry.registrationMarriage(citizen3, citizen4, LocalDate.now());
-        civilRegistry.registrationBirth(child1, citizen1, citizen2, LocalDate.now());
-        civilRegistry.registrationBirth(child2, citizen3, citizen4, LocalDate.now());
-        civilRegistry.registrationBirth(child3, citizen3, citizen4, LocalDate.now());
+        civilRegistry.birthOfChild(child1, citizen1, citizen2, LocalDate.now());
+        civilRegistry.birthOfChild(child2, citizen3, citizen4, LocalDate.now());
+        civilRegistry.birthOfChild(child3, citizen3, citizen4, LocalDate.now());
 
         civilRegistry.statistic(LocalDate.now());
     }
