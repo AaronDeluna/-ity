@@ -3,6 +3,8 @@ package org.javaacademy.civilregistry;
 import lombok.AllArgsConstructor;
 import org.javaacademy.entity.Citizen;
 import org.javaacademy.entity.CivilActionRecord;
+import org.javaacademy.validation.CivilRegistryValidation;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -35,6 +37,7 @@ public class CivilRegistry {
     метод регистрации брака
     */
     public void registrationMarriage(Citizen firstSpouse, Citizen secondSpouse, LocalDate date) {
+        CivilRegistryValidation.validateMarriageStatus(firstSpouse, secondSpouse);
         CivilActionRecord record = new CivilActionRecord(
                 date,
                 CivilActionType.WEDDING_REGISTRATION,
@@ -48,6 +51,7 @@ public class CivilRegistry {
     метод расторжения брака
     */
     public void registrationDivorce(Citizen firstSpouse, Citizen secondSpouse, LocalDate date) {
+        CivilRegistryValidation.validateDivorceStatus(firstSpouse, secondSpouse);
         CivilActionRecord record = new CivilActionRecord(
                 date,
                 CivilActionType.DIVORCE_REGISTRATION,

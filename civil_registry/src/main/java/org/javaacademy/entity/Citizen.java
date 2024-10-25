@@ -10,7 +10,7 @@ import org.javaacademy.Human;
 @Setter
 public class Citizen extends Human {
     @NonNull
-    private MaritalStatus maritalStatus;
+    private MaritalStatus maritalStatus = MaritalStatus.DIVORCED;
     private Citizen spouse;
 
     public Citizen(String name, String surname, String patronymic, Gender gender) {
