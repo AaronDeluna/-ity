@@ -1,8 +1,7 @@
 package org.javaacademy.civilregistry;
 
-import org.javaacademy.civilregistry.entity.CivilActionRecord;
-import org.javaacademy.civilregistry.entity.CivilActionType;
 import org.javaacademy.entity.Citizen;
+import org.javaacademy.entity.CivilActionRecord;
 import org.javaacademy.entity.MaritalStatus;
 
 import java.time.LocalDate;

@@ -15,6 +15,14 @@ public class Citizen extends Human {
 
     public Citizen(String name, String surname, String patronymic, Gender gender) {
         super(name, surname, patronymic, gender);
+    }
 
+    @Override
+    public Citizen giveBirth(@NonNull String name, @NonNull String surname,
+                             @NonNull String patronymic, @NonNull Gender gender,
+                             @NonNull Human secondParent) {
+        Citizen citizen = new Citizen(name, surname, patronymic, gender);
+        citizen.setParents(this, secondParent);
+        return citizen;
     }
 }

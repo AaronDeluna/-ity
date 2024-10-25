@@ -1,4 +1,4 @@
-package org.javaacademy.civilregistry.entity;
+package org.javaacademy.civilregistry;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

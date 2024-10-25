@@ -1,6 +1,7 @@
-package org.javaacademy.civilregistry.entity;
+package org.javaacademy.entity;
 
 import lombok.Getter;
+import org.javaacademy.civilregistry.CivilActionType;
 import org.javaacademy.entity.Citizen;
 
 import java.time.LocalDate;
