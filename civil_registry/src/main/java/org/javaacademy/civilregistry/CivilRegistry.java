@@ -3,8 +3,6 @@ package org.javaacademy.civilregistry;
 import lombok.AllArgsConstructor;
 import org.javaacademy.entity.Citizen;
 import org.javaacademy.entity.CivilActionRecord;
-import org.javaacademy.entity.MaritalStatus;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -42,10 +40,8 @@ public class CivilRegistry {
                 CivilActionType.WEDDING_REGISTRATION,
                 List.of(firstSpouse, secondSpouse));
         addCivilActionRecord(record);
-        firstSpouse.setMaritalStatus(MaritalStatus.MARRIED);
-        firstSpouse.setSpouse(secondSpouse);
-        secondSpouse.setMaritalStatus(MaritalStatus.MARRIED);
-        secondSpouse.setSpouse(firstSpouse);
+        firstSpouse.marriage(secondSpouse);
+        secondSpouse.marriage(firstSpouse);
     }
 
     /*
@@ -57,10 +53,8 @@ public class CivilRegistry {
                 CivilActionType.DIVORCE_REGISTRATION,
                 List.of(firstSpouse, secondSpouse));
         addCivilActionRecord(record);
-        firstSpouse.setMaritalStatus(MaritalStatus.DIVORCED);
-        firstSpouse.setSpouse(null);
-        secondSpouse.setMaritalStatus(MaritalStatus.DIVORCED);
-        secondSpouse.setSpouse(null);
+        firstSpouse.divorce();
+        secondSpouse.divorce();
     }
 
     /**

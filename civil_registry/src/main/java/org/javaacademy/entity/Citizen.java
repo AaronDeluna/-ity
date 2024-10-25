@@ -17,12 +17,25 @@ public class Citizen extends Human {
         super(name, surname, patronymic, gender);
     }
 
+    public void divorce() {
+        maritalStatus = MaritalStatus.DIVORCED;
+        spouse = null;
+    }
+
+    public void marriage(Citizen spouse) {
+        maritalStatus = MaritalStatus.MARRIED;
+        this.spouse = spouse;
+    }
+
     @Override
     public Citizen giveBirth(@NonNull String name, @NonNull String surname,
                              @NonNull String patronymic, @NonNull Gender gender,
                              @NonNull Human secondParent) {
         Citizen citizen = new Citizen(name, surname, patronymic, gender);
-        citizen.setParents(this, secondParent);
+        if (secondParent.getGender() == Gender.MALE) {
+            citizen.setParents(this, secondParent);
+        }
+
         return citizen;
     }
 }
