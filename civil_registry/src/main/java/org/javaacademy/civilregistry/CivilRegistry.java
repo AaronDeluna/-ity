@@ -1,5 +1,6 @@
 package org.javaacademy.civilregistry;
 
+import lombok.AllArgsConstructor;
 import org.javaacademy.entity.Citizen;
 import org.javaacademy.entity.CivilActionRecord;
 import org.javaacademy.entity.MaritalStatus;
@@ -16,13 +17,10 @@ import java.util.stream.Collectors;
 /**
  * класс ЗАГС.
  */
+@AllArgsConstructor
 public class CivilRegistry {
     private final String name;
     private final TreeMap<LocalDate, List<CivilActionRecord>> civilActionRecords = new TreeMap<>();
-
-    public CivilRegistry(String name) {
-        this.name = name;
-    }
 
     /*
     метод регистрации новорожденного
