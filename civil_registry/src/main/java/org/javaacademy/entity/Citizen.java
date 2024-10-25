@@ -6,11 +6,16 @@ import lombok.Setter;
 import org.javaacademy.Gender;
 import org.javaacademy.Human;
 
+import static org.javaacademy.Gender.MALE;
+import static org.javaacademy.Gender.FEMALE;
+import static org.javaacademy.entity.MaritalStatus.DIVORCED;
+import static org.javaacademy.entity.MaritalStatus.MARRIED;
+
 @Getter
 @Setter
 public class Citizen extends Human {
     @NonNull
-    private MaritalStatus maritalStatus = MaritalStatus.DIVORCED;
+    private MaritalStatus maritalStatus = DIVORCED;
     private Citizen spouse;
 
     public Citizen(String name, String surname, String patronymic, Gender gender) {
@@ -22,7 +27,7 @@ public class Citizen extends Human {
      * и очищая информацию о супруге.
      */
     public void divorce() {
-        maritalStatus = MaritalStatus.DIVORCED;
+        maritalStatus = DIVORCED;
         spouse = null;
     }
 
@@ -33,7 +38,7 @@ public class Citizen extends Human {
      * @param spouse Супруг(а), с которым заключается брак.
      */
     public void marriage(Citizen spouse) {
-        maritalStatus = MaritalStatus.MARRIED;
+        maritalStatus = MARRIED;
         this.spouse = spouse;
     }
 
@@ -42,9 +47,9 @@ public class Citizen extends Human {
                              @NonNull String patronymic, @NonNull Gender gender,
                              @NonNull Human secondParent) {
         Citizen citizen = new Citizen(name, surname, patronymic, gender);
-        if (secondParent.getGender() == Gender.MALE) {
+        if (secondParent.getGender() == MALE) {
             citizen.setParents(this, secondParent);
-        } else if (secondParent.getGender() == Gender.FEMALE) {
+        } else if (secondParent.getGender() == FEMALE) {
             citizen.setParents(secondParent, this);
         }
 

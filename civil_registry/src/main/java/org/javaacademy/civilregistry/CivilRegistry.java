@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import org.javaacademy.entity.Citizen;
 import org.javaacademy.entity.CivilActionRecord;
 import org.javaacademy.validation.CivilRegistryValidation;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -13,6 +12,9 @@ import java.util.Map;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
 
+import static org.javaacademy.civilregistry.CivilActionType.BIRTH_REGISTRATION;
+import static org.javaacademy.civilregistry.CivilActionType.WEDDING_REGISTRATION;
+import static org.javaacademy.civilregistry.CivilActionType.DIVORCE_REGISTRATION;
 
 /**
  * класс ЗАГС.
@@ -31,9 +33,10 @@ public class CivilRegistry {
      * @param date   Дата регистрации рождения.
      */
     public void birthOfChild(Citizen child, Citizen father, Citizen mother, LocalDate date) {
+        CivilRegistryValidation.validateParentChildConnection(child, father, mother);
         CivilActionRecord record = new CivilActionRecord(
                 date,
-                CivilActionType.BIRTH_REGISTRATION,
+                BIRTH_REGISTRATION,
                 List.of(child, father, mother));
         addCivilActionRecord(record);
     }
@@ -50,7 +53,7 @@ public class CivilRegistry {
         CivilRegistryValidation.validateMarriageStatus(firstSpouse, secondSpouse);
         CivilActionRecord record = new CivilActionRecord(
                 date,
-                CivilActionType.WEDDING_REGISTRATION,
+                WEDDING_REGISTRATION,
                 List.of(firstSpouse, secondSpouse));
         addCivilActionRecord(record);
         firstSpouse.marriage(secondSpouse);
@@ -69,7 +72,7 @@ public class CivilRegistry {
         CivilRegistryValidation.validateDivorceStatus(firstSpouse, secondSpouse);
         CivilActionRecord record = new CivilActionRecord(
                 date,
-                CivilActionType.DIVORCE_REGISTRATION,
+                DIVORCE_REGISTRATION,
                 List.of(firstSpouse, secondSpouse));
         addCivilActionRecord(record);
         firstSpouse.divorce();
@@ -100,8 +103,8 @@ public class CivilRegistry {
         System.out.printf("Статистика по ЗАГС: %s\n", this.name);
         System.out.printf("Дата %s: количество свадеб - %d, количество разводов - %d, количество рождений - %d\n",
                 date.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")),
-                countCivilActionByType.getOrDefault(CivilActionType.WEDDING_REGISTRATION, 0L),
-                countCivilActionByType.getOrDefault(CivilActionType.DIVORCE_REGISTRATION, 0L),
-                countCivilActionByType.getOrDefault(CivilActionType.BIRTH_REGISTRATION, 0L));
+                countCivilActionByType.getOrDefault(WEDDING_REGISTRATION, 0L),
+                countCivilActionByType.getOrDefault(DIVORCE_REGISTRATION, 0L),
+                countCivilActionByType.getOrDefault(BIRTH_REGISTRATION, 0L));
     }
 }
