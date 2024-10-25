@@ -7,7 +7,7 @@ import java.time.LocalDate;
 
 public class RunnerProm {
     public static void main(String[] args) {
-        CivilRegistry civilRegistry = new CivilRegistry (args[0]);
+        CivilRegistry civilRegistry = new CivilRegistry(args[0]);
         Citizen citizen1 = new Citizen("александр", "пушкин", "СЕргеевич", Gender.MALE);
         Citizen citizen2 = new Citizen("ЕЛЕНА", "петрова", "Петровна", Gender.FEMALE);
         Citizen citizen3 = new Citizen("Антонина  ", " Иванова", "НикоЛаевна", Gender.FEMALE);

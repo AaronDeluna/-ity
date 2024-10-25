@@ -13,10 +13,10 @@ import java.util.Map;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
 
-/*
-    класс ЗАГСа
- */
 
+/**
+ * класс ЗАГС.
+ */
 public class CivilRegistry {
     private final String name;
     private final TreeMap<LocalDate, List<CivilActionRecord>> civilActionRecords = new TreeMap<>();
