@@ -20,8 +20,8 @@ public class RunnerTest {
         civilRegistry.registrationDivorce(citizen1, citizen2, LocalDate.now());
         civilRegistry.registrationMarriage(citizen3, citizen4, LocalDate.now());
         civilRegistry.birthOfChild(child1, citizen1, citizen2, LocalDate.now());
-        civilRegistry.birthOfChild(child2, citizen3, citizen4, LocalDate.now());
-        civilRegistry.birthOfChild(child3, citizen3, citizen4, LocalDate.now());
+        civilRegistry.birthOfChild(child2, citizen4, citizen3, LocalDate.now());
+        civilRegistry.birthOfChild(child3, citizen4, citizen3, LocalDate.now());
 
         civilRegistry.statisticsForDate(LocalDate.now());
 
