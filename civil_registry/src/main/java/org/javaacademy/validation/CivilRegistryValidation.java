@@ -7,6 +7,14 @@ import org.javaacademy.entity.MaritalStatus;
 @UtilityClass
 public class CivilRegistryValidation {
 
+    /**
+     * Проверяет, могут ли двое граждан вступить в брак,
+     * основываясь на их текущем статусе.
+     *
+     * @param firstSpouse Первый супруг, чье состояние проверяется.
+     * @param secondSpouse Второй супруг, чье состояние проверяется.
+     * @throws IllegalArgumentException Если оба супруга не разведены.
+     */
     public void validateMarriageStatus(Citizen firstSpouse, Citizen secondSpouse) {
         if (firstSpouse.getMaritalStatus() != MaritalStatus.DIVORCED
                 && secondSpouse.getMaritalStatus() != MaritalStatus.DIVORCED) {
@@ -14,6 +22,14 @@ public class CivilRegistryValidation {
         }
     }
 
+    /**
+     * Проверяет, могут ли двое граждан развестись,
+     * основываясь на их текущем статусе.
+     *
+     * @param firstSpouse Первый супруг, чье состояние проверяется.
+     * @param secondSpouse Второй супруг, чье состояние проверяется.
+     * @throws IllegalArgumentException Если оба супруга не состоят в браке.
+     */
     public void validateDivorceStatus(Citizen firstSpouse, Citizen secondSpouse) {
         if (firstSpouse.getMaritalStatus() != MaritalStatus.MARRIED
                 && secondSpouse.getMaritalStatus() != MaritalStatus.MARRIED) {

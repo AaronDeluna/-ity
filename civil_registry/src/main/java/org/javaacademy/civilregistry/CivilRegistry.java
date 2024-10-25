@@ -22,9 +22,14 @@ public class CivilRegistry {
     private final String name;
     private final TreeMap<LocalDate, List<CivilActionRecord>> civilActionRecords = new TreeMap<>();
 
-    /*
-    метод регистрации новорожденного
-    */
+    /**
+     * Регистрация рождения ребенка.
+     *
+     * @param child  Ребенок, который рождается.
+     * @param father Отец ребенка.
+     * @param mother Мать ребенка.
+     * @param date   Дата регистрации рождения.
+     */
     public void birthOfChild(Citizen child, Citizen father, Citizen mother, LocalDate date) {
         CivilActionRecord record = new CivilActionRecord(
                 date,
@@ -33,9 +38,14 @@ public class CivilRegistry {
         addCivilActionRecord(record);
     }
 
-    /*
-    метод регистрации брака
-    */
+    /**
+     * Регистрация брака между супругами.
+     *
+     * @param firstSpouse  Первый супруг, который вступает в брак.
+     * @param secondSpouse Второй супруг, который вступает в брак.
+     * @param date         Дата регистрации брака.
+     * @throws IllegalArgumentException если один из супругов уже состоит в браке.
+     */
     public void registrationMarriage(Citizen firstSpouse, Citizen secondSpouse, LocalDate date) {
         CivilRegistryValidation.validateMarriageStatus(firstSpouse, secondSpouse);
         CivilActionRecord record = new CivilActionRecord(
@@ -47,9 +57,14 @@ public class CivilRegistry {
         secondSpouse.marriage(firstSpouse);
     }
 
-    /*
-    метод расторжения брака
-    */
+    /**
+     * Регистрация развода между супругами.
+     *
+     * @param firstSpouse  Первый супруг, который разводится.
+     * @param secondSpouse Второй супруг, который разводится.
+     * @param date         Дата регистрации развода.
+     * @throws IllegalArgumentException если один из супругов уже разведён или не может развестись.
+     */
     public void registrationDivorce(Citizen firstSpouse, Citizen secondSpouse, LocalDate date) {
         CivilRegistryValidation.validateDivorceStatus(firstSpouse, secondSpouse);
         CivilActionRecord record = new CivilActionRecord(

@@ -17,11 +17,21 @@ public class Citizen extends Human {
         super(name, surname, patronymic, gender);
     }
 
+    /**
+     * Осуществляет развод для гражданина, устанавливая его статус на 'разведенный'
+     * и очищая информацию о супруге.
+     */
     public void divorce() {
         maritalStatus = MaritalStatus.DIVORCED;
         spouse = null;
     }
 
+    /**
+     * Устанавливает статус гражданина как 'женатый' и
+     * связывает его с указанным супругом.
+     *
+     * @param spouse Супруг(а), с которым заключается брак.
+     */
     public void marriage(Citizen spouse) {
         maritalStatus = MaritalStatus.MARRIED;
         this.spouse = spouse;
