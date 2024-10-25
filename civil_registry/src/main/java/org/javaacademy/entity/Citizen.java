@@ -1,8 +1,10 @@
 package org.javaacademy.entity;
 
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
+import lombok.experimental.FieldDefaults;
 import org.javaacademy.Gender;
 import org.javaacademy.Human;
 
@@ -13,10 +15,11 @@ import static org.javaacademy.entity.MaritalStatus.MARRIED;
 
 @Getter
 @Setter
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class Citizen extends Human {
     @NonNull
-    private MaritalStatus maritalStatus = DIVORCED;
-    private Citizen spouse;
+    MaritalStatus maritalStatus = DIVORCED;
+    Citizen spouse;
 
     public Citizen(String name, String surname, String patronymic, Gender gender) {
         super(name, surname, patronymic, gender);

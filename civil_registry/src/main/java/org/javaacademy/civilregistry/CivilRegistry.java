@@ -1,6 +1,7 @@
 package org.javaacademy.civilregistry;
 
 import lombok.AllArgsConstructor;
+import lombok.experimental.FieldDefaults;
 import org.javaacademy.entity.Citizen;
 import org.javaacademy.entity.CivilActionRecord;
 import org.javaacademy.validation.CivilRegistryValidation;

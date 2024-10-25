@@ -33,7 +33,7 @@ public class CivilRegistryValidation {
      * @throws IllegalArgumentException Если оба супруга не состоят в браке.
      */
     public void validateDivorceStatus(Citizen firstSpouse, Citizen secondSpouse) {
-        if (firstSpouse.getMaritalStatus() != MARRIED
+        if (firstSpouse.getMaritalStatus()!=MARRIED
                 && secondSpouse.getMaritalStatus() != MARRIED) {
             throw new IllegalArgumentException("Ошибка: Для проведения операции оба супруга должны быть в браке");
         }

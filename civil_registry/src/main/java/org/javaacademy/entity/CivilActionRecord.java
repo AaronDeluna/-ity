@@ -1,16 +1,19 @@
 package org.javaacademy.entity;
 
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.experimental.FieldDefaults;
 import org.javaacademy.civilregistry.CivilActionType;
 import java.time.LocalDate;
 import java.util.List;
 
 @AllArgsConstructor
+@FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 public class CivilActionRecord {
     @Getter
-    private final LocalDate date;
+    LocalDate date;
     @Getter
-    private final CivilActionType civilActionType;
-    private final List<Citizen> citizens;
+    CivilActionType civilActionType;
+    List<Citizen> citizens;
 }
