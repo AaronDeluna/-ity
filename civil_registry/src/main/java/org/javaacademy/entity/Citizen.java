@@ -34,6 +34,8 @@ public class Citizen extends Human {
         Citizen citizen = new Citizen(name, surname, patronymic, gender);
         if (secondParent.getGender() == Gender.MALE) {
             citizen.setParents(this, secondParent);
+        } else if (secondParent.getGender() == Gender.FEMALE) {
+            citizen.setParents(secondParent, this);
         }
 
         return citizen;
