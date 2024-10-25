@@ -63,20 +63,20 @@ public class CivilRegistry {
         secondSpouse.setSpouse(null);
     }
 
-    /*
-    метод добавления записи гражданского действия
-    */
+    /**
+     * Добавляет запись о гражданском действии в список записей по дате.
+     *
+     * @param record Запись о гражданском действии для добавления.
+     */
     private void addCivilActionRecord(CivilActionRecord record) {
-        civilActionRecords.merge(record.getDate(), new ArrayList<>(List.of(record)), (oldValue, newValue) -> {
-                    oldValue.add(newValue.get(0));
-                    return oldValue;
-                }
-        );
+        civilActionRecords.computeIfAbsent(record.getDate(), k -> new ArrayList<>()).add(record);
     }
 
-    /*
-    Печать статистики ЗАГСа на дату
-    */
+    /**
+     * Выводит статистику ЗАГСа на указанную дату, включая количество свадеб, разводов и рождений.
+     *
+     * @param date Дата для вывода статистики.
+     */
     public void statisticsForDate(LocalDate date) {
         Map<CivilActionType, Long> countCivilActionByType = civilActionRecords.get(date).stream()
                 .collect(Collectors.groupingBy(
