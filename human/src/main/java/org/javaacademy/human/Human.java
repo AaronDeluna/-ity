@@ -2,22 +2,30 @@ package org.javaacademy.human;
 
 import java.util.ArrayList;
 import java.util.List;
+import lombok.AccessLevel;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NonNull;
+import lombok.experimental.FieldDefaults;
 import org.apache.commons.lang3.StringUtils;
 
 /**
  * Класс Человек.
  */
 @Getter
+@FieldDefaults(level = AccessLevel.PRIVATE)
+@EqualsAndHashCode
 public class Human {
 
-  String name;
+  private String name;
   String surname;
   String patronymic;
   final Gender gender;
+  @EqualsAndHashCode.Exclude
   Human father;
+  @EqualsAndHashCode.Exclude
   Human mother;
+  @EqualsAndHashCode.Exclude
   final List<Human> children = new ArrayList<>();
 
   /**
