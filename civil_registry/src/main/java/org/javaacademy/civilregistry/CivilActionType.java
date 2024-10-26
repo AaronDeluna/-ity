@@ -7,7 +7,6 @@ import lombok.experimental.FieldDefaults;
 /**
  * Сущность Тип гражданского действия.
  */
-
 @Getter
 @RequiredArgsConstructor
 @FieldDefaults(makeFinal = true)

@@ -7,7 +7,6 @@ import lombok.experimental.FieldDefaults;
 /**
  * Семейное положение.
  */
-
 @Getter
 @RequiredArgsConstructor
 @FieldDefaults(makeFinal = true)

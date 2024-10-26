@@ -11,7 +11,6 @@ import org.javaacademy.civilregistry.CivilActionType;
 /**
  * Сущность Запись гражданского действия.
  */
-
 @RequiredArgsConstructor
 @Getter
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)

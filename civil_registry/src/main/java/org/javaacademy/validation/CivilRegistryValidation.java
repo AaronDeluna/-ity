@@ -1,11 +1,13 @@
 package org.javaacademy.validation;
 
-import static org.javaacademy.entity.MaritalStatus.DIVORCED;
 import static org.javaacademy.entity.MaritalStatus.MARRIED;
 
 import lombok.experimental.UtilityClass;
 import org.javaacademy.entity.Citizen;
 
+/**
+ * Утилитный класс реализующий валидацию гражданских действий ЗАГСа.
+ */
 @UtilityClass
 public class CivilRegistryValidation {
 
@@ -16,11 +18,11 @@ public class CivilRegistryValidation {
    * @param secondSpouse Второй супруг, чье состояние проверяется.
    * @throws IllegalArgumentException Если оба супруга не разведены.
    */
-  public void validateMarriageStatus(Citizen firstSpouse, Citizen secondSpouse) {
-    if (firstSpouse.getMaritalStatus() != DIVORCED
-        && secondSpouse.getMaritalStatus() != DIVORCED) {
+  public void checkOnNotMarriedStatus(Citizen firstSpouse, Citizen secondSpouse) {
+    if (firstSpouse.getMaritalStatus() == MARRIED
+        && secondSpouse.getMaritalStatus() == MARRIED) {
       throw new IllegalArgumentException(
-          "Ошибка: Для проведения операции оба супруга должны быть разведены.");
+          "Ошибка: Для регистрации брака оба супруга должны не состоять в браке.");
     }
   }
 
@@ -31,11 +33,12 @@ public class CivilRegistryValidation {
    * @param secondSpouse Второй супруг, чье состояние проверяется.
    * @throws IllegalArgumentException Если оба супруга не состоят в браке.
    */
-  public void validateDivorceStatus(Citizen firstSpouse, Citizen secondSpouse) {
+  public void checkOnMarriedStatus(Citizen firstSpouse, Citizen secondSpouse) {
     if (firstSpouse.getMaritalStatus() != MARRIED
-        && secondSpouse.getMaritalStatus() != MARRIED) {
+        && secondSpouse.getMaritalStatus() != MARRIED
+        && !firstSpouse.getSpouse().equals(secondSpouse)) {
       throw new IllegalArgumentException(
-          "Ошибка: Для проведения операции оба супруга должны быть в браке");
+          "Ошибка: Для регистрации развода оба супруга должны состоять в браке друг с другом.");
     }
   }
 
@@ -51,12 +54,12 @@ public class CivilRegistryValidation {
   public void validateParentChildConnection(Citizen child, Citizen father, Citizen mother) {
     if (!child.getFather().equals(father)) {
       throw new IllegalArgumentException(
-          "Ошибка: Указанный отец не является биологическим родителем.");
+          "Ошибка: Указанный отец не является родителем указанного ребенка.");
     }
 
     if (!child.getMother().equals(mother)) {
       throw new IllegalArgumentException(
-          "Ошибка: Указанная мать не является биологическим родителем.");
+          "Ошибка: Указанная мать не является родителем указанного ребенка.");
     }
   }
 }

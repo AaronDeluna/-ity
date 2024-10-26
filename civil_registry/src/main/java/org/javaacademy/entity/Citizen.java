@@ -1,7 +1,6 @@
 package org.javaacademy.entity;
 
-import static org.javaacademy.entity.MaritalStatus.DIVORCED;
-import static org.javaacademy.entity.MaritalStatus.MARRIED;
+import static org.javaacademy.entity.MaritalStatus.SINGLE;
 import static org.javaacademy.human.Gender.FEMALE;
 import static org.javaacademy.human.Gender.MALE;
 
@@ -16,13 +15,12 @@ import org.javaacademy.human.Human;
 /**
  * Класс Гражданин.
  */
-
 @Getter
 @Setter
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Citizen extends Human {
 
-  MaritalStatus maritalStatus = DIVORCED;
+  MaritalStatus maritalStatus = SINGLE;
   Citizen spouse;
 
   public Citizen(String name, String surname, String patronymic, Gender gender) {
@@ -30,24 +28,15 @@ public class Citizen extends Human {
   }
 
   /**
-   * Осуществляет развод для гражданина, устанавливая его статус на 'разведенный' и очищая
-   * информацию о супруге.
-   */
-  public void divorce() {
-    maritalStatus = DIVORCED;
-    spouse = null;
-  }
-
-  /**
-   * Устанавливает статус гражданина как 'женатый' и связывает его с указанным супругом.
+   * Метод переопределенный от класса Human
    *
-   * @param spouse Супруг(а), с которым заключается брак.
+   * @param name         имя ребенка
+   * @param surname      фамилия ребенка
+   * @param patronymic   отчество ребенка
+   * @param gender       пол ребенка
+   * @param secondParent второй родитель ребенка
+   * @return объект гражданина
    */
-  public void marriage(Citizen spouse) {
-    maritalStatus = MARRIED;
-    this.spouse = spouse;
-  }
-
   @Override
   public Citizen produceChild(@NonNull String name, @NonNull String surname,
       @NonNull String patronymic, @NonNull Gender gender,
