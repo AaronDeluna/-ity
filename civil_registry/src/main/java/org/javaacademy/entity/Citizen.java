@@ -1,8 +1,6 @@
 package org.javaacademy.entity;
 
 import static org.javaacademy.entity.MaritalStatus.SINGLE;
-import static org.javaacademy.human.Gender.FEMALE;
-import static org.javaacademy.human.Gender.MALE;
 
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -38,17 +36,11 @@ public class Citizen extends Human {
    * @return объект гражданина
    */
   @Override
-  public Citizen produceChild(@NonNull String name, @NonNull String surname,
-      @NonNull String patronymic, @NonNull Gender gender,
-      @NonNull Human secondParent) {
+  public Human produceChild(@NonNull String name, @NonNull String surname,
+      @NonNull String patronymic, @NonNull Gender gender, @NonNull Human secondParent) {
 //    Human child = super.produceChild(name, surname, patronymic, gender, secondParent);
-    Citizen citizen = new Citizen(name, surname, patronymic, gender);
-    if (secondParent.getGender() == MALE) {
-      citizen.setParents(this, secondParent);
-    } else if (secondParent.getGender() == FEMALE) {
-      citizen.setParents(secondParent, this);
-    }
-
-    return citizen;
+    Citizen child = new Citizen(name, surname, patronymic, gender);
+    child.setParents(this, secondParent);
+    return child;
   }
 }

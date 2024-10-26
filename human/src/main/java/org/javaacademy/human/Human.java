@@ -83,11 +83,18 @@ public class Human {
    * Функция указания родителей.
    */
 
-  public void setParents(@NonNull Human father, @NonNull Human mother) {
-    this.father = father;
-    this.mother = mother;
-    father.getChildren().add(this);
-    mother.getChildren().add(this);
+  protected void setParents(Human firstParent, Human secondParent) {
+    if (firstParent.gender == Gender.MALE) {
+      this.father = firstParent;
+      this.mother = secondParent;
+    }
+    if (firstParent.gender == Gender.FEMALE) {
+      this.mother = firstParent;
+      this.father = secondParent;
+    }
+
+    firstParent.getChildren().add(this);
+    secondParent.getChildren().add(this);
   }
 
   /**
@@ -95,18 +102,14 @@ public class Human {
    */
 
   public Human produceChild(@NonNull String name, @NonNull String surname,
-      @NonNull String patronymic,
-      @NonNull Gender gender, @NonNull Human secondParent) {
+      @NonNull String patronymic, @NonNull Gender gender, @NonNull Human secondParent) {
+
     if (this.gender == secondParent.gender) {
       throw new IllegalArgumentException("Родители должны быть противоположных полов!");
     }
 
     Human child = new Human(name, surname, patronymic, gender);
-    if (this.gender == Gender.MALE) {
-      child.setParents(this, secondParent);
-    } else {
-      child.setParents(secondParent, this);
-    }
+    child.setParents(this, secondParent);
     return child;
   }
 
