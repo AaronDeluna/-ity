@@ -13,8 +13,8 @@ public class Programmer extends Employee {
 
     private Task task;
 
-    public Programmer(String name, String surname, String patronymic, Gender gender) {
-        super(name, surname, patronymic, gender);
+    public Programmer(String name, String surname, String patronymic, Gender gender, BigDecimal earnedAmount) {
+        super(name, surname, patronymic, gender, earnedAmount);
     }
 
     /**
