@@ -35,37 +35,40 @@ public class CivilRegistry {
   /**
    * Регистрация рождения ребенка.
    *
-   * @param child  Ребенок, который рождается.
-   * @param father Отец ребенка.
-   * @param mother Мать ребенка.
-   * @param date   Дата регистрации рождения.
+   * @param child        Ребенок, который рождается.
+   * @param firstParent  отец/мать ребёнка.
+   * @param secondParent отец/мать ребенка.
+   * @param date         Дата регистрации рождения.
    */
-  public void birthOfChild(Citizen child, Citizen father, Citizen mother, LocalDate date) {
-    CivilRegistryValidation.validateParentChildConnection(child, father, mother);
+  public void birthOfChild(Citizen child, Citizen firstParent, Citizen secondParent,
+      LocalDate date) {
+    CivilRegistryValidation.checkOnOppositeGender(firstParent, secondParent);
+    CivilRegistryValidation.validateParentChildConnection(child, firstParent, secondParent);
     CivilActionRecord record = new CivilActionRecord(
         date,
         BIRTH_REGISTRATION,
-        List.of(child, father, mother));
+        List.of(child, firstParent, secondParent));
     addCivilActionRecord(record);
   }
 
   /**
    * Регистрация брака между супругами.
    *
-   * @param firstSpouse  Первый супруг, который вступает в брак.
-   * @param secondSpouse Второй супруг, который вступает в брак.
-   * @param date         Дата регистрации брака.
+   * @param firstCitizen  Первый гражданин, который вступает в брак.
+   * @param secondCitizen Второй гражданин, который вступает в брак.
+   * @param date          Дата регистрации брака.
    * @throws IllegalArgumentException если один из супругов уже состоит в браке.
    */
-  public void registrationMarriage(Citizen firstSpouse, Citizen secondSpouse, LocalDate date) {
-    CivilRegistryValidation.checkOnNotMarriedStatus(firstSpouse, secondSpouse);
+  public void registrationMarriage(Citizen firstCitizen, Citizen secondCitizen, LocalDate date) {
+    CivilRegistryValidation.checkOnOppositeGender(firstCitizen, secondCitizen);
+    CivilRegistryValidation.checkOnNotMarriedStatus(firstCitizen, secondCitizen);
     CivilActionRecord record = new CivilActionRecord(
         date,
         WEDDING_REGISTRATION,
-        List.of(firstSpouse, secondSpouse));
+        List.of(firstCitizen, secondCitizen));
     addCivilActionRecord(record);
-    changeStatusCivilActionOnMarried(firstSpouse, secondSpouse);
-    changeStatusCivilActionOnMarried(secondSpouse, firstSpouse);
+    changeStatusCivilActionOnMarried(firstCitizen, secondCitizen);
+    changeStatusCivilActionOnMarried(secondCitizen, firstCitizen);
   }
 
   /**
@@ -79,20 +82,21 @@ public class CivilRegistry {
   /**
    * Регистрация развода между супругами.
    *
-   * @param firstSpouse  Первый супруг, который разводится.
-   * @param secondSpouse Второй супруг, который разводится.
-   * @param date         Дата регистрации развода.
+   * @param firstCitizen  Первый гражданин, который разводится.
+   * @param secondCitizen Второй гражданин, который разводится.
+   * @param date          Дата регистрации развода.
    * @throws IllegalArgumentException если один из супругов уже разведён или не может развестись.
    */
-  public void registrationDivorce(Citizen firstSpouse, Citizen secondSpouse, LocalDate date) {
-    CivilRegistryValidation.checkOnMarriedStatus(firstSpouse, secondSpouse);
+  public void registrationDivorce(Citizen firstCitizen, Citizen secondCitizen, LocalDate date) {
+    CivilRegistryValidation.checkOnOppositeGender(firstCitizen, secondCitizen);
+    CivilRegistryValidation.checkOnMarriedStatus(firstCitizen, secondCitizen);
     CivilActionRecord record = new CivilActionRecord(
         date,
         DIVORCE_REGISTRATION,
-        List.of(firstSpouse, secondSpouse));
+        List.of(firstCitizen, secondCitizen));
     addCivilActionRecord(record);
-    changeStatusCivilActionOnDivorce(firstSpouse);
-    changeStatusCivilActionOnDivorce(secondSpouse);
+    changeStatusCivilActionOnDivorce(firstCitizen);
+    changeStatusCivilActionOnDivorce(secondCitizen);
   }
 
   /**

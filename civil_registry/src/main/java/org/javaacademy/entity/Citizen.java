@@ -36,7 +36,7 @@ public class Citizen extends Human {
    * @return объект гражданина
    */
   @Override
-  public Human produceChild(@NonNull String name, @NonNull String surname,
+  public Citizen produceChild(@NonNull String name, @NonNull String surname,
       @NonNull String patronymic, @NonNull Gender gender, @NonNull Human secondParent) {
 //    Human child = super.produceChild(name, surname, patronymic, gender, secondParent);
     Citizen child = new Citizen(name, surname, patronymic, gender);
