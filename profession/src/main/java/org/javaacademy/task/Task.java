@@ -7,8 +7,9 @@ import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 
 /**
- * Класс Задача - содержит описание,статус (сделано или нет), количество часов трудозатрат.
+ * Класс Задача - содержит описание, статус (сделано или нет), количество часов трудозатрат.
  */
+
 @Getter
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)

@@ -9,12 +9,11 @@ import org.javaacademy.task.TaskStatus;
 /**
  * Класс Программист.
  */
+
 public class Programmer extends Employee {
 
   private static final BigDecimal MIN_HOURLY_RATE = BigDecimal.valueOf(1500.0);
   private static final BigDecimal MAX_HOURLY_RATE = BigDecimal.valueOf(2000.0);
-
-  private Task task;
 
   public Programmer(String name, String surname, String patronymic, Gender gender) {
     super(name, surname, patronymic, gender);
@@ -34,11 +33,10 @@ public class Programmer extends Employee {
   }
 
   /**
-   * Функция, которая позволяет программисту принимать задачу.
+   * Функция, которая позволяет программисту принимать задачу и менять на статус Сделана.
    */
 
   public void acceptTask(Task task) {
-    this.task = task;
-    this.task.setStatus(TaskStatus.COMPLETED);
+    task.setStatus(TaskStatus.COMPLETED);
   }
 }
