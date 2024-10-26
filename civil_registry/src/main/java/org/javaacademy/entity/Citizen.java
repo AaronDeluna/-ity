@@ -46,9 +46,9 @@ public class Citizen extends Human {
     }
 
     @Override
-    public Citizen giveBirth(@NonNull String name, @NonNull String surname,
-                             @NonNull String patronymic, @NonNull Gender gender,
-                             @NonNull Human secondParent) {
+    public Citizen produceChild(@NonNull String name, @NonNull String surname,
+                                @NonNull String patronymic, @NonNull Gender gender,
+                                @NonNull Human secondParent) {
         Citizen citizen = new Citizen(name, surname, patronymic, gender);
         if (secondParent.getGender() == MALE) {
             citizen.setParents(this, secondParent);

@@ -1,31 +1,28 @@
 package org.javaacademy.human;
 
-import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NonNull;
-import lombok.Setter;
-import lombok.experimental.FieldDefaults;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Getter
-@Setter(value = AccessLevel.PRIVATE)
-@FieldDefaults(level = AccessLevel.PRIVATE)
 public class Human {
-    @NonNull
     String name;
-    @NonNull
     String surname;
-    @NonNull
     String patronymic;
-    @NonNull
-    Gender gender;
-
+    final Gender gender;
     Human father;
     Human mother;
-    List<Human> children = new ArrayList<>();
+    final List<Human> children = new ArrayList<>();
+
+    public Human(@NonNull String name, @NonNull String surname, @NonNull String patronymic, @NonNull Gender gender) {
+        setName(name);
+        setSurname(surname);
+        setPatronymic(patronymic);
+        this.gender = gender;
+    }
 
     /**
      * Функция преобразования текста (первая заглавная буква, все остальные буквы в нижнем регистре).
@@ -36,20 +33,13 @@ public class Human {
     }
 
     /**
-     * Функция проверки строк на путоту.
+     * Функция проверки строк на пустой ввод - наличие только пробелов или ни одного символа.
      */
 
     private void checkIsEmptyString(String str) {
         if (str.isBlank()) {
             throw new IllegalArgumentException("Поля не должны быть пустыми или состоять только из пробелов.");
         }
-    }
-
-    public Human(String name, String surname, String patronymic, Gender gender) {
-        setName(name);
-        setSurname(surname);
-        setPatronymic(patronymic);
-        this.gender = gender;
     }
 
     private void setName(String name) {
@@ -72,8 +62,8 @@ public class Human {
      */
 
     public void setParents(@NonNull Human father, @NonNull Human mother) {
-        setFather(father);
-        setMother(mother);
+        this.father = father;
+        this.mother = mother;
         father.getChildren().add(this);
         mother.getChildren().add(this);
     }
@@ -82,8 +72,8 @@ public class Human {
      * Функция, которая отвечает за производство ребенка на свет.
      */
 
-    public Human giveBirth(@NonNull String name, @NonNull String surname, @NonNull String patronymic,
-                           @NonNull Gender gender, @NonNull Human secondParent) {
+    public Human produceChild(@NonNull String name, @NonNull String surname, @NonNull String patronymic,
+                              @NonNull Gender gender, @NonNull Human secondParent) {
         if (this.gender == secondParent.gender) {
             throw new IllegalArgumentException("Родители должны быть противоположных полов!");
         }
@@ -98,7 +88,7 @@ public class Human {
     }
 
     /**
-     * Функция получениия полного имени.
+     * Функция получения полного имени.
      */
 
     public String getFullName() {
