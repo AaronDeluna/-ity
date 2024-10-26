@@ -1,61 +1,45 @@
 package org.javaacademy.entity;
 
+import static org.javaacademy.entity.MaritalStatus.SINGLE;
+
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
-import org.javaacademy.Gender;
-import org.javaacademy.Human;
+import org.javaacademy.human.Gender;
+import org.javaacademy.human.Human;
 
-import static org.javaacademy.Gender.MALE;
-import static org.javaacademy.Gender.FEMALE;
-import static org.javaacademy.entity.MaritalStatus.DIVORCED;
-import static org.javaacademy.entity.MaritalStatus.MARRIED;
-
+/**
+ * Класс Гражданин.
+ */
 @Getter
 @Setter
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Citizen extends Human {
-    @NonNull
-    MaritalStatus maritalStatus = DIVORCED;
-    Citizen spouse;
 
-    public Citizen(String name, String surname, String patronymic, Gender gender) {
-        super(name, surname, patronymic, gender);
-    }
+  MaritalStatus maritalStatus = SINGLE;
+  Citizen spouse;
 
-    /**
-     * Осуществляет развод для гражданина, устанавливая его статус на 'разведенный'
-     * и очищая информацию о супруге.
-     */
-    public void divorce() {
-        maritalStatus = DIVORCED;
-        spouse = null;
-    }
+  public Citizen(String name, String surname, String patronymic, Gender gender) {
+    super(name, surname, patronymic, gender);
+  }
 
-    /**
-     * Устанавливает статус гражданина как 'женатый' и
-     * связывает его с указанным супругом.
-     *
-     * @param spouse Супруг(а), с которым заключается брак.
-     */
-    public void marriage(Citizen spouse) {
-        maritalStatus = MARRIED;
-        this.spouse = spouse;
-    }
-
-    @Override
-    public Citizen giveBirth(@NonNull String name, @NonNull String surname,
-                             @NonNull String patronymic, @NonNull Gender gender,
-                             @NonNull Human secondParent) {
-        Citizen citizen = new Citizen(name, surname, patronymic, gender);
-        if (secondParent.getGender() == MALE) {
-            citizen.setParents(this, secondParent);
-        } else if (secondParent.getGender() == FEMALE) {
-            citizen.setParents(secondParent, this);
-        }
-
-        return citizen;
-    }
+  /**
+   * Метод переопределенный от класса Human.
+   *
+   * @param name         имя ребенка
+   * @param surname      фамилия ребенка
+   * @param patronymic   отчество ребенка
+   * @param gender       пол ребенка
+   * @param secondParent второй родитель ребенка
+   * @return объект гражданина
+   */
+  @Override
+  public Citizen produceChild(@NonNull String name, @NonNull String surname,
+      @NonNull String patronymic, @NonNull Gender gender, @NonNull Human secondParent) {
+    Citizen child = new Citizen(name, surname, patronymic, gender);
+    child.setParents(this, secondParent);
+    return child;
+  }
 }
