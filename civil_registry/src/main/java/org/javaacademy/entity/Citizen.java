@@ -5,11 +5,11 @@ import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
-import org.javaacademy.Gender;
-import org.javaacademy.Human;
+import org.javaacademy.human.Gender;
+import org.javaacademy.human.Human;
 
-import static org.javaacademy.Gender.MALE;
-import static org.javaacademy.Gender.FEMALE;
+import static org.javaacademy.human.Gender.MALE;
+import static org.javaacademy.human.Gender.FEMALE;
 import static org.javaacademy.entity.MaritalStatus.DIVORCED;
 import static org.javaacademy.entity.MaritalStatus.MARRIED;
 

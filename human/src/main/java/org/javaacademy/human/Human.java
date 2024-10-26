@@ -1,4 +1,4 @@
-package org.javaacademy;
+package org.javaacademy.human;
 
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -40,9 +40,8 @@ public class Human {
      */
 
     private void checkIsEmptyString(String str) {
-        if(str.isBlank()){
-            throw new IllegalArgumentException
-                    ("Поля не должны быть пустыми или состоять только из пробелов.");
+        if (str.isBlank()) {
+            throw new IllegalArgumentException("Поля не должны быть пустыми или состоять только из пробелов.");
         }
     }
 

@@ -4,8 +4,8 @@ import org.javaacademy.civilregistry.CivilRegistry;
 import org.javaacademy.entity.Citizen;
 import java.time.LocalDate;
 
-import static org.javaacademy.Gender.MALE;
-import static org.javaacademy.Gender.FEMALE;
+import static org.javaacademy.human.Gender.MALE;
+import static org.javaacademy.human.Gender.FEMALE;
 
 public class RunnerTest {
     public static void main(String[] args) {

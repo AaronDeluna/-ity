@@ -1,7 +1,7 @@
 package org.javaacademy.employee;
 
 import lombok.NonNull;
-import org.javaacademy.Gender;
+import org.javaacademy.human.Gender;
 import org.javaacademy.task.Task;
 import org.javaacademy.task.TaskStatus;
 

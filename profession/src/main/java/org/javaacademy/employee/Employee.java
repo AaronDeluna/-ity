@@ -2,8 +2,8 @@ package org.javaacademy.employee;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.javaacademy.Gender;
-import org.javaacademy.Human;
+import org.javaacademy.human.Gender;
+import org.javaacademy.human.Human;
 
 import java.math.BigDecimal;
 
