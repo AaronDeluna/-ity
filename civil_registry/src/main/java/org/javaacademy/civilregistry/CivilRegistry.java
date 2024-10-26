@@ -5,6 +5,7 @@ import org.javaacademy.civilregistry.entity.CivilActionRecord;
 import org.javaacademy.civilregistry.entity.CivilActionType;
 import org.javaacademy.entity.Citizen;
 import org.javaacademy.entity.MaritalStatus;
+import org.javaacademy.validation.CivilRegistryValidation;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -35,12 +36,7 @@ public class CivilRegistry {
      * @param date - дата регистрации записи
     */
     public void birthOfChild(Citizen child, Citizen father, Citizen mother, LocalDate date) {
-        if (father.getGender()!= Gender.MALE) {
-            throw new IllegalArgumentException("Отец должен быть мужского пола!");
-        }
-        if (mother.getGender()!= Gender.FEMALE) {
-            throw new IllegalArgumentException("Мать должна быть женского пола!");
-        }
+        CivilRegistryValidation.validateParentChildConnection(child, father, mother);
         CivilActionRecord record = new CivilActionRecord(
                 date,
                 CivilActionType.BIRTH_REGISTRATION,
@@ -55,22 +51,33 @@ public class CivilRegistry {
      * @param date - дата регистрации записи
      */
     public void registrationMarriage(Citizen firstSpouse, Citizen secondSpouse, LocalDate date) {
-        if (firstSpouse.getGender()== secondSpouse.getGender()) {
-            throw new IllegalArgumentException("Брачующиеся должны быть противоположных полов!");
-        }
-        if (firstSpouse.getMaritalStatus()== MaritalStatus.MARRIED||
-                secondSpouse.getMaritalStatus()== MaritalStatus.MARRIED) {
-            throw new IllegalArgumentException("Один из брачующихся уже состоит в браке");
-        }
+        CivilRegistryValidation.validateMarriageStatus(firstSpouse, secondSpouse);
         CivilActionRecord record = new CivilActionRecord(
                 date,
                 CivilActionType.WEDDING_REGISTRATION,
                 List.of(firstSpouse, secondSpouse));
         addCivilActionRecord(record);
-        firstSpouse.setMaritalStatus(MaritalStatus.MARRIED);
-        firstSpouse.setSpouse(secondSpouse);
-        secondSpouse.setMaritalStatus(MaritalStatus.MARRIED);
-        secondSpouse.setSpouse(firstSpouse);
+        registrationCitizen(firstSpouse, secondSpouse, CivilActionType.WEDDING_REGISTRATION);
+    }
+
+    /**
+     *
+     * @param firstSpouse - первый супруг
+     * @param secondSpouse - второй супруе
+     * @param civilActionType - вид гражданского действия (заключение брака или расторжение брака)
+     */
+    private void registrationCitizen(Citizen firstSpouse, Citizen secondSpouse, CivilActionType civilActionType) {
+        if (civilActionType == CivilActionType.WEDDING_REGISTRATION) {
+            firstSpouse.setMaritalStatus(MaritalStatus.MARRIED);
+            firstSpouse.setSpouse(secondSpouse);
+            secondSpouse.setMaritalStatus(MaritalStatus.MARRIED);
+            secondSpouse.setSpouse(firstSpouse);
+        } else if (civilActionType == CivilActionType.DIVORCE_REGISTRATION) {
+            firstSpouse.setMaritalStatus(MaritalStatus.DIVORCED);
+            firstSpouse.setSpouse(null);
+            secondSpouse.setMaritalStatus(MaritalStatus.DIVORCED);
+            secondSpouse.setSpouse(null);
+        }
     }
 
     /**
@@ -80,18 +87,13 @@ public class CivilRegistry {
      * @param date - дата регистрации записи
      */
     public void registrationDivorce(Citizen firstSpouse, Citizen secondSpouse, LocalDate date) {
-        if (!firstSpouse.getSpouse().equals(secondSpouse)) {
-            throw new IllegalArgumentException("Расторгающие брак не состоят в браке друг с другом");
-        }
+        CivilRegistryValidation.validateDivorceStatus(firstSpouse, secondSpouse);
         CivilActionRecord record = new CivilActionRecord(
                 date,
                 CivilActionType.DIVORCE_REGISTRATION,
                 List.of(firstSpouse, secondSpouse));
         addCivilActionRecord(record);
-        firstSpouse.setMaritalStatus(MaritalStatus.DIVORCED);
-        firstSpouse.setSpouse(null);
-        secondSpouse.setMaritalStatus(MaritalStatus.DIVORCED);
-        secondSpouse.setSpouse(null);
+        registrationCitizen(firstSpouse, secondSpouse, CivilActionType.DIVORCE_REGISTRATION);
     }
 
     /**
