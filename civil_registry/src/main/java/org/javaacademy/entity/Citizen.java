@@ -26,7 +26,7 @@ public class Citizen extends Human {
   }
 
   /**
-   * Метод переопределенный от класса Human
+   * Метод переопределенный от класса Human.
    *
    * @param name         имя ребенка
    * @param surname      фамилия ребенка
@@ -38,7 +38,6 @@ public class Citizen extends Human {
   @Override
   public Citizen produceChild(@NonNull String name, @NonNull String surname,
       @NonNull String patronymic, @NonNull Gender gender, @NonNull Human secondParent) {
-//    Human child = super.produceChild(name, surname, patronymic, gender, secondParent);
     Citizen child = new Citizen(name, surname, patronymic, gender);
     child.setParents(this, secondParent);
     return child;

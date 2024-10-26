@@ -36,7 +36,6 @@ public class Human {
    * @param patronymic - отчество человека.
    * @param gender     - пол человека.
    */
-
   public Human(@NonNull String name, @NonNull String surname, @NonNull String patronymic,
       @NonNull Gender gender) {
     setName(name);
@@ -46,17 +45,15 @@ public class Human {
   }
 
   /**
-   * Функция преобразования текста (первая заглавная буква, все остальные буквы в нижнем регистре).
+   * Метод преобразования текста (первая заглавная буква, все остальные буквы в нижнем регистре).
    */
-
   private String capitalize(String text) {
     return StringUtils.capitalize(text.toLowerCase());
   }
 
   /**
-   * Функция проверки строк на пустой ввод - наличие только пробелов или ни одного символа.
+   * Метод проверки строк на пустой ввод - наличие только пробелов или ни одного символа.
    */
-
   private void checkIsEmptyString(String str) {
     if (str.isBlank()) {
       throw new IllegalArgumentException(
@@ -80,9 +77,8 @@ public class Human {
   }
 
   /**
-   * Функция указания родителей.
+   * Метод указания родителей.
    */
-
   protected void setParents(Human firstParent, Human secondParent) {
     if (firstParent.gender == Gender.MALE) {
       this.father = firstParent;
@@ -92,31 +88,35 @@ public class Human {
       this.mother = firstParent;
       this.father = secondParent;
     }
-
-    firstParent.getChildren().add(this);
-    secondParent.getChildren().add(this);
   }
 
   /**
-   * Функция, которая отвечает за производство ребенка на свет.
+   * Метод, которая отвечает за производство ребенка на свет.
    */
-
   public Human produceChild(@NonNull String name, @NonNull String surname,
       @NonNull String patronymic, @NonNull Gender gender, @NonNull Human secondParent) {
 
-    if (this.gender == secondParent.gender) {
-      throw new IllegalArgumentException("Родители должны быть противоположных полов!");
-    }
+    this.checkOnOppositeGender(secondParent);
 
     Human child = new Human(name, surname, patronymic, gender);
     child.setParents(this, secondParent);
+    this.getChildren().add(child);
+    secondParent.getChildren().add(child);
     return child;
   }
 
   /**
-   * Функция получения полного имени.
+   * Метод, проверяющий родителей на противоположность полов.
    */
+  private void checkOnOppositeGender(Human secondParent) {
+    if (this.gender == secondParent.gender) {
+      throw new IllegalArgumentException("Родители должны быть противоположных полов!");
+    }
+  }
 
+  /**
+   * Метод получения полного имени.
+   */
   public String getFullName() {
     return String.format("%s %s %s", surname, name, patronymic);
   }
