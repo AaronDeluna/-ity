@@ -72,7 +72,7 @@ public class Human {
      * Функция указания родителей.
      */
 
-    private void setParents(@NonNull Human father, @NonNull Human mother) {
+    public void setParents(@NonNull Human father, @NonNull Human mother) {
         setFather(father);
         setMother(mother);
         father.getChildren().add(this);
