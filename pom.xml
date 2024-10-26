@@ -10,9 +10,9 @@
     <packaging>pom</packaging>
     <modules>
         <module>human</module>
-        <module>profession</module>
         <module>civil_registry</module>
-        <module>company</module> 
+        <module>profession</module>
+        <module>company</module>
     </modules>
 
     <properties>

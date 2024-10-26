@@ -16,9 +16,9 @@ public class Programmer extends Employee {
   private static final BigDecimal MAX_HOURLY_RATE = BigDecimal.valueOf(2000.0);
 
 
- // public Programmer(String name, String surname, String patronymic, Gender gender, BigDecimal earnedAmount) {
-  //    super(name, surname, patronymic, gender, earnedAmount);
- // }
+  public Programmer(String name, String surname, String patronymic, Gender gender, BigDecimal earnedAmount) {
+      super(name, surname, patronymic, gender, earnedAmount);
+  }
 
   public Programmer(String name, String surname, String patronymic, Gender gender) {
     super(name, surname, patronymic, gender);

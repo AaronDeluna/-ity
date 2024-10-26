@@ -1,8 +1,7 @@
 package org.javaacademy.employee;
 
-import org.javaacademy.Gender;
-
 import java.math.BigDecimal;
+import org.javaacademy.human.Gender;
 
 public class Manager extends Employee {
 
