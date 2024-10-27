@@ -4,7 +4,9 @@ import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import lombok.AccessLevel;
 import lombok.NonNull;
+import lombok.experimental.FieldDefaults;
 import org.apache.commons.collections4.MultiValuedMap;
 import org.apache.commons.collections4.multimap.ArrayListValuedHashMap;
 import org.javaacademy.employee.Employee;
@@ -15,15 +17,17 @@ import org.javaacademy.task.Task;
 /**
  * Класс Компания.
  */
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class Company {
 
-  private static final BigDecimal RATIO_LABOR_COST_MANAGER = BigDecimal.valueOf(0.1);
+  static final BigDecimal RATIO_LABOR_COST_MANAGER = BigDecimal.valueOf(0.1);
 
-  private final String name;
-  private final Manager manager;
-  private final List<Programmer> programmers;
-  MultiValuedMap<Programmer, Task> listCompletedTasksByProgrammers = new ArrayListValuedHashMap<>();
-  Map<Employee, BigDecimal> timesheet = new HashMap<>();
+  final String name;
+  final Manager manager;
+  final List<Programmer> programmers;
+  final MultiValuedMap<Programmer, Task> listCompletedTasksByProgrammers =
+      new ArrayListValuedHashMap<>();
+  final Map<Employee, BigDecimal> timesheet = new HashMap<>();
   BigDecimal totalExpenses = BigDecimal.ZERO;
 
   /**
@@ -96,15 +100,17 @@ public class Company {
     System.out.printf("%s\nЗатраты: %.2f\nСписок выполненных задач у компании:\n",
         name, totalExpenses);
     listCompletedTasksByProgrammers.keySet()
-        .forEach((programmer) -> {
-          System.out.printf("%s - %s\n",
-              programmer.getFullName(),
-              joinListOfTasksToString(listCompletedTasksByProgrammers, programmer));
-        });
+        .forEach((programmer) ->
+            System.out.printf("%s - %s\n",
+                programmer.getFullName(),
+                joinListOfTasksToString(programmer))
+        );
   }
 
-  private String joinListOfTasksToString(MultiValuedMap<Programmer, Task> lisTasksByProgrammers,
-      Programmer programmer) {
+  /**
+   * Метод - объединяет список задач выполненный программистом в строку.
+   */
+  private String joinListOfTasksToString(Programmer programmer) {
     return String.join(", ",
         listCompletedTasksByProgrammers.get(programmer).stream()
             .map(Task::getDescription)
