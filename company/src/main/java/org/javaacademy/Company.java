@@ -5,13 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.experimental.FieldDefaults;
+import lombok.NonNull;
 import org.apache.commons.collections4.MultiValuedMap;
 import org.javaacademy.employee.Employee;
 import org.javaacademy.employee.Manager;
@@ -19,36 +13,23 @@ import org.javaacademy.employee.Programmer;
 import org.javaacademy.task.Task;
 import org.javaacademy.task.TaskStatus;
 
-@FieldDefaults(level = AccessLevel.PRIVATE)
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
 
 public class Company {
 
-  String name;
-  Manager manager;
-  List<Programmer> programmers;
+  private final String name;
+  private final Manager manager;
+  private final List<Programmer> programmers;
   MultiValuedMap<Programmer, Task> tasks;
   Map<Employee, Integer> timesheet;
   BigDecimal totalExpenses;
-  double stavka = 10e-1;
 
-  public Company(String name, Manager manager, List<Programmer> programmers,
-      MultiValuedMap<Programmer, Task> tasks,
-      Map<Employee, Integer> timesheet, BigDecimal totalExpenses, BigDecimal hourlyRate) {
+  public Company(@NonNull String name, @NonNull Manager manager,
+      @NonNull List<Programmer> programmers, @NonNull BigDecimal hourlyRateForProgrammers) {
     this.name = name;
     this.manager = manager;
     this.programmers = programmers;
-    this.tasks = tasks;
-    this.timesheet = timesheet;
-    this.totalExpenses = totalExpenses;
 
-    if (programmers != null && hourlyRate != null) {
-      programmers.forEach(programmer -> programmer.setHourlyRate(hourlyRate));
-    }
+    programmers.forEach(programmer -> programmer.setHourlyRate(hourlyRateForProgrammers));
   }
 
   /**
@@ -143,7 +124,7 @@ public class Company {
     timesheet.put(programmer, hoursSpent);
     System.out.println(programmer.getName() + " добавил " + hoursSpent + " часов к табелю.");
 
-    int managerHours = (int) (hoursSpent * stavka);
+    int managerHours = (int) (hoursSpent * 10E-1);
     timesheet.put(manager, managerHours);
     System.out.println(manager.getName() + " добавил " + managerHours + " часов к табелю.");
   }
