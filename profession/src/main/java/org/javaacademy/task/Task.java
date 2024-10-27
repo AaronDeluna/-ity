@@ -6,6 +6,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 
+import java.math.BigDecimal;
+
 /**
  * Класс Задача - содержит описание, статус (сделано или нет), количество часов трудозатрат.
  */
@@ -16,7 +18,7 @@ import lombok.experimental.FieldDefaults;
 public class Task {
 
   final String description;
-  final int hoursSpent;
+  final BigDecimal hoursSpent;
   @Setter
   TaskStatus status = TaskStatus.NOT_COMPLETED;
 }
