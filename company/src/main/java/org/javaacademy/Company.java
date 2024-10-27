@@ -70,6 +70,18 @@ public class Company {
     timesheet.merge(employee, hoursOfLabor, BigDecimal::add);
   }
 
+  /**
+   * Метод выплаты работникам за неделю.
+   */
+  public void paysForWeekOfWork() {
+    timesheet.forEach(
+        (key, value) -> {
+          BigDecimal payment = value.multiply(key.getHourlyRate());
+          key.setAmountOfMoneyEarned(payment);
+          totalExpenses = totalExpenses.add(payment);
+        });
+    timesheet.clear();
+  }
 
   /**
    * Назначает задачи программистам по очереди
