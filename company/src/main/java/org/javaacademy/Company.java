@@ -13,7 +13,7 @@ import org.javaacademy.employee.Programmer;
 import org.javaacademy.task.Task;
 
 /**
- * Класс Компания
+ * Класс Компания.
  */
 public class Company {
 
@@ -26,6 +26,14 @@ public class Company {
   Map<Employee, BigDecimal> timesheet = new HashMap<>();
   BigDecimal totalExpenses = BigDecimal.ZERO;
 
+  /**
+   * Конструктор класса Company.
+   *
+   * @param name                     имя компании
+   * @param manager                  манеджер
+   * @param programmers              список программистов
+   * @param hourlyRateForProgrammers единая часовая ставка для программистов
+   */
   public Company(@NonNull String name, @NonNull Manager manager,
       @NonNull List<Programmer> programmers, @NonNull BigDecimal hourlyRateForProgrammers) {
     this.name = name;

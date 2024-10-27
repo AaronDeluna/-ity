@@ -7,8 +7,16 @@ import org.javaacademy.employee.Programmer;
 import org.javaacademy.human.Gender;
 import org.javaacademy.task.Task;
 
+/**
+ * Класс Runner.
+ */
 public class Runner {
 
+  /**
+   * Метод входа в программу.
+   *
+   * @param args аргументы метода
+   */
   public static void main(String[] args) {
     Programmer programmer1 = new Programmer("Петр", "Петров", "Петрович", Gender.MALE);
     Programmer programmer2 = new Programmer("Иван", "Иванов", "Иванович", Gender.MALE);
