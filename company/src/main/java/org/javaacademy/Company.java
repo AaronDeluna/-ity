@@ -5,7 +5,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.NonNull;
+import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 import org.apache.commons.collections4.MultiValuedMap;
 import org.apache.commons.collections4.multimap.ArrayListValuedHashMap;
@@ -17,14 +19,17 @@ import org.javaacademy.task.Task;
 /**
  * Класс Компания.
  */
+@Getter
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Company {
 
   static final BigDecimal RATIO_LABOR_COST_MANAGER = BigDecimal.valueOf(0.1);
 
   final String name;
-  final Manager manager;
-  final List<Programmer> programmers;
+  @Setter
+  Manager manager;
+  @Setter
+  List<Programmer> programmers;
   final MultiValuedMap<Programmer, Task> listCompletedTasksByProgrammers =
       new ArrayListValuedHashMap<>();
   final Map<Employee, BigDecimal> timesheet = new HashMap<>();
@@ -39,12 +44,12 @@ public class Company {
    * @param hourlyRateForProgrammers единая часовая ставка для программистов
    */
   public Company(@NonNull String name, @NonNull Manager manager,
-      @NonNull List<Programmer> programmers, @NonNull BigDecimal hourlyRateForProgrammers) {
+      @NonNull BigDecimal hourlyRateForProgrammers, @NonNull Programmer... programmers) {
     this.name = name;
     this.manager = manager;
-    this.programmers = programmers;
+    this.programmers = List.of(programmers);
 
-    programmers.forEach(programmer -> programmer.setHourlyRate(hourlyRateForProgrammers));
+    this.programmers.forEach(programmer -> programmer.setHourlyRate(hourlyRateForProgrammers));
   }
 
   /**
@@ -52,7 +57,7 @@ public class Company {
    *
    * @param tasks список задач
    */
-  public void weeklyWork(@NonNull List<Task> tasks) {
+  public void weeklyWork(@NonNull Task... tasks) {
     int i = 0;
     for (Task task : tasks) {
       if (i == programmers.size()) {

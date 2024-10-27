@@ -7,8 +7,16 @@ import java.time.LocalDate;
 import org.javaacademy.civilregistry.CivilRegistry;
 import org.javaacademy.entity.Citizen;
 
+/**
+ * Класс RunnerTest.
+ */
 public class RunnerTest {
 
+  /**
+   * Метод main.
+   *
+   * @param args аргументы при запуске программы.
+   */
   public static void main(String[] args) {
     CivilRegistry civilRegistry = new CivilRegistry("TEST_ZAGS");
     Citizen citizen1 = new Citizen("александр", "пушкин", "СЕргеевич", MALE);
@@ -25,14 +33,14 @@ public class RunnerTest {
     civilRegistry.registrationMarriage(citizen1, citizen2, LocalDate.now());
     civilRegistry.registrationDivorce(citizen1, citizen2, LocalDate.now());
     civilRegistry.registrationMarriage(citizen3, citizen4, LocalDate.now());
-//    civilRegistry.registrationMarriage(citizen3, citizen4, LocalDate.now());
-//    civilRegistry.registrationDivorce(citizen3, citizen4, LocalDate.now());
+    //civilRegistry.registrationMarriage(citizen3, citizen4, LocalDate.now());
+    //civilRegistry.registrationDivorce(citizen3, citizen4, LocalDate.now());
     civilRegistry.registrationDivorce(citizen3, citizen4, LocalDate.now());
     civilRegistry.birthOfChild(child1, citizen1, citizen2, LocalDate.now());
     civilRegistry.birthOfChild(child3, citizen1, citizen2, LocalDate.now());
 
     civilRegistry.birthOfChild(child2, citizen3, citizen4, LocalDate.now());
-//    civilRegistry.birthOfChild(child2, citizen3, citizen1, LocalDate.now());
+    //civilRegistry.birthOfChild(child2, citizen3, citizen1, LocalDate.now());
 
     civilRegistry.statisticsForDate(LocalDate.now());
 
