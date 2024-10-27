@@ -8,6 +8,8 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import lombok.NonNull;
 import org.apache.commons.collections4.MultiValuedMap;
+import org.apache.commons.collections4.map.MultiValueMap;
+import org.apache.commons.collections4.multimap.ArrayListValuedHashMap;
 import org.javaacademy.employee.Employee;
 import org.javaacademy.employee.Manager;
 import org.javaacademy.employee.Programmer;
@@ -24,7 +26,7 @@ public class Company {
   private final String name;
   private final Manager manager;
   private final List<Programmer> programmers;
-  MultiValuedMap<Programmer, Task> listCompletedTasksByProgrammers;
+  MultiValuedMap<Programmer, Task> listCompletedTasksByProgrammers = new ArrayListValuedHashMap<>();
   Map<Employee, BigDecimal> timesheet = new HashMap<>();
   BigDecimal totalExpenses;
 
@@ -81,6 +83,24 @@ public class Company {
           totalExpenses = totalExpenses.add(payment);
         });
     timesheet.clear();
+  }
+
+  public void informationAboutCompany() {
+    System.out.printf("""
+        %s
+        Затраты: %.2f
+        Список выполненных задач у компании:
+        """, name, totalExpenses);
+    listCompletedTasksByProgrammers.entries()
+        .forEach((programmerTaskEntry) -> {
+          System.out.printf("""
+              %s - %s
+              """, programmerTaskEntry.getKey(), programmerTaskEntry.getValue());
+        });
+    listCompletedTasksByProgrammers.
+
+
+
   }
 
   /**
