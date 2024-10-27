@@ -12,8 +12,8 @@ import org.javaacademy.task.TaskStatus;
 
 public class Programmer extends Employee {
 
-  private static final BigDecimal MIN_HOURLY_RATE = BigDecimal.valueOf(1500.0);
-  private static final BigDecimal MAX_HOURLY_RATE = BigDecimal.valueOf(2000.0);
+  private static final BigDecimal MIN_HOURLY_RATE = BigDecimal.valueOf(1_500);
+  private static final BigDecimal MAX_HOURLY_RATE = BigDecimal.valueOf(2_000);
 
   public Programmer(String name, String surname, String patronymic, Gender gender) {
     super(name, surname, patronymic, gender);

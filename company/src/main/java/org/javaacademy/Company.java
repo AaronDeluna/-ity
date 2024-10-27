@@ -24,7 +24,7 @@ public class Company {
   private final List<Programmer> programmers;
   MultiValuedMap<Programmer, Task> listCompletedTasksByProgrammers = new ArrayListValuedHashMap<>();
   Map<Employee, BigDecimal> timesheet = new HashMap<>();
-  BigDecimal totalExpenses;
+  BigDecimal totalExpenses = BigDecimal.ZERO;
 
   public Company(@NonNull String name, @NonNull Manager manager,
       @NonNull List<Programmer> programmers, @NonNull BigDecimal hourlyRateForProgrammers) {
@@ -48,7 +48,7 @@ public class Company {
       }
       Programmer programmer = programmers.get(i);
       programmer.acceptTask(task);
-      System.out.printf("%s - сделана.", task.getDescription());
+      System.out.printf("%s - сделана.\n", task.getDescription());
 
       addRecordToTimesheet(programmer, task.getHoursOfLabor());
       addRecordToTimesheet(manager, task.getHoursOfLabor().multiply(RATIO_LABOR_COST_MANAGER));
@@ -81,13 +81,25 @@ public class Company {
     timesheet.clear();
   }
 
-  public void informationAboutCompany() {
+  /**
+   * Метод - инфо о компании.
+   */
+  public void infoAboutCompany() {
     System.out.printf("%s\nЗатраты: %.2f\nСписок выполненных задач у компании:\n",
         name, totalExpenses);
     listCompletedTasksByProgrammers.keySet()
         .forEach((programmer) -> {
           System.out.printf("%s - %s\n",
-              programmer.getFullName(), listCompletedTasksByProgrammers.get(programmer));
+              programmer.getFullName(),
+              joinListOfTasksToString(listCompletedTasksByProgrammers, programmer));
         });
+  }
+
+  private String joinListOfTasksToString(MultiValuedMap<Programmer, Task> lisTasksByProgrammers,
+      Programmer programmer) {
+    return String.join(", ",
+        listCompletedTasksByProgrammers.get(programmer).stream()
+            .map(Task::getDescription)
+            .toList());
   }
 }
