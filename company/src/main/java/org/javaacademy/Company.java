@@ -1,6 +1,7 @@
 package org.javaacademy;
 
 import java.math.BigDecimal;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -13,14 +14,18 @@ import org.javaacademy.employee.Programmer;
 import org.javaacademy.task.Task;
 import org.javaacademy.task.TaskStatus;
 
-
+/**
+ * Класс Компания
+ */
 public class Company {
+
+  private static final BigDecimal RATIO_LABOR_COST_MANAGER = BigDecimal.valueOf(0.1);
 
   private final String name;
   private final Manager manager;
   private final List<Programmer> programmers;
-  MultiValuedMap<Programmer, Task> tasks;
-  Map<Employee, Integer> timesheet;
+  MultiValuedMap<Programmer, Task> listCompletedTasksByProgrammers;
+  Map<Employee, BigDecimal> timesheet = new HashMap<>();
   BigDecimal totalExpenses;
 
   public Company(@NonNull String name, @NonNull Manager manager,
@@ -31,6 +36,40 @@ public class Company {
 
     programmers.forEach(programmer -> programmer.setHourlyRate(hourlyRateForProgrammers));
   }
+
+  /**
+   * Метод - Работа на неделю.
+   *
+   * @param tasks список задач
+   */
+  public void weeklyWork(@NonNull List<Task> tasks) {
+    int i = 0;
+    for (Task task : tasks) {
+      if (i == programmers.size()) {
+        i = 0;
+      }
+      Programmer programmer = programmers.get(i);
+      programmer.acceptTask(task);
+      System.out.printf("%s - сделана.", task.getDescription());
+
+      addRecordToTimesheet(programmer, task.getHoursOfLabor());
+      addRecordToTimesheet(manager, task.getHoursOfLabor().multiply(RATIO_LABOR_COST_MANAGER));
+
+      listCompletedTasksByProgrammers.put(programmer, task);
+      i++;
+    }
+  }
+
+  /**
+   * Метод добавления записи в табель учета времени.
+   *
+   * @param employee     работник
+   * @param hoursOfLabor часы трудозатрат
+   */
+  private void addRecordToTimesheet(Employee employee, BigDecimal hoursOfLabor) {
+    timesheet.merge(employee, hoursOfLabor, BigDecimal::add);
+  }
+
 
   /**
    * Назначает задачи программистам по очереди
@@ -86,7 +125,7 @@ public class Company {
   }
 
   private String getCompletedTasks(Programmer programmer) {
-    return tasks.get(programmer).stream()
+    return listCompletedTasksByProgrammers.get(programmer).stream()
         .filter(task -> task.getStatus() == TaskStatus.COMPLETED)
         .map(Task::getDescription)
         .collect(Collectors.joining(", "));
@@ -120,7 +159,7 @@ public class Company {
    */
 
   private void updateTimesheet(Programmer programmer, Task task) {
-    int hoursSpent = task.getHoursSpent();
+    int hoursSpent = task.getHoursOfLabor();
     timesheet.put(programmer, hoursSpent);
     System.out.println(programmer.getName() + " добавил " + hoursSpent + " часов к табелю.");
 
