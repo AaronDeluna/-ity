@@ -19,7 +19,6 @@ public class Programmer extends Employee {
     super(name, surname, patronymic, gender);
   }
 
-
   /**
    * Функция установления почасовой ставки.
    */
