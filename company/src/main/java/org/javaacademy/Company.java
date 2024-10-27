@@ -8,7 +8,6 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import lombok.NonNull;
 import org.apache.commons.collections4.MultiValuedMap;
-import org.apache.commons.collections4.map.MultiValueMap;
 import org.apache.commons.collections4.multimap.ArrayListValuedHashMap;
 import org.javaacademy.employee.Employee;
 import org.javaacademy.employee.Manager;
@@ -86,21 +85,13 @@ public class Company {
   }
 
   public void informationAboutCompany() {
-    System.out.printf("""
-        %s
-        Затраты: %.2f
-        Список выполненных задач у компании:
-        """, name, totalExpenses);
-    listCompletedTasksByProgrammers.entries()
-        .forEach((programmerTaskEntry) -> {
-          System.out.printf("""
-              %s - %s
-              """, programmerTaskEntry.getKey(), programmerTaskEntry.getValue());
+    System.out.printf("%s\nЗатраты: %.2f\nСписок выполненных задач у компании:\n",
+        name, totalExpenses);
+    listCompletedTasksByProgrammers.keySet()
+        .forEach((programmer) -> {
+          System.out.printf("%s - %s\n",
+              programmer.getFullName(), listCompletedTasksByProgrammers.get(programmer));
         });
-    listCompletedTasksByProgrammers.
-
-
-
   }
 
   /**
