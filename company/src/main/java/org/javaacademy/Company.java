@@ -1,142 +1,122 @@
 package org.javaacademy;
 
-import lombok.*;
+import java.math.BigDecimal;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+import lombok.AccessLevel;
+import lombok.NonNull;
+import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 import org.apache.commons.collections4.MultiValuedMap;
+import org.apache.commons.collections4.multimap.ArrayListValuedHashMap;
 import org.javaacademy.employee.Employee;
 import org.javaacademy.employee.Manager;
 import org.javaacademy.employee.Programmer;
 import org.javaacademy.task.Task;
-import org.javaacademy.task.TaskStatus;
 
-import java.math.BigDecimal;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
-
+/**
+ * Класс Компания.
+ */
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
-
 public class Company {
-     String name;
-     Manager manager;
-     List<Programmer> programmers;
-     MultiValuedMap<Programmer, Task> tasks;
-     Map<Employee, Integer> timesheet;
-     BigDecimal totalExpenses;
 
-     public Company(String name, Manager manager, List<Programmer> programmers, MultiValuedMap<Programmer, Task> tasks,
-                    Map<Employee, Integer> timesheet, BigDecimal totalExpenses, BigDecimal hourlyRate) {
-          this.name = name;
-          this.manager = manager;
-          this.programmers = programmers;
-          this.tasks = tasks;
-          this.timesheet = timesheet;
-          this.totalExpenses = totalExpenses;
+  static final BigDecimal RATIO_LABOR_COST_MANAGER = BigDecimal.valueOf(0.1);
 
-          if (programmers != null && hourlyRate != null) {
-               programmers.forEach(programmer -> programmer.setHourlyRate(hourlyRate));
-          }
-     }
+  final String name;
+  @Setter
+  Manager manager;
+  @Setter
+  List<Programmer> programmers;
+  final MultiValuedMap<Programmer, Task> listCompletedTasksByProgrammers =
+      new ArrayListValuedHashMap<>();
+  final Map<Employee, BigDecimal> timesheet = new HashMap<>();
+  BigDecimal totalExpenses = BigDecimal.ZERO;
 
-     /**
-      *  Назначает задачи программистам по очереди
-      */
+  /**
+   * Конструктор класса Company.
+   *
+   * @param name                     имя компании
+   * @param manager                  менеджер
+   * @param programmers              список программистов
+   * @param hourlyRateForProgrammers единая часовая ставка для программистов
+   */
+  public Company(@NonNull String name, @NonNull Manager manager,
+      @NonNull BigDecimal hourlyRateForProgrammers, @NonNull Programmer... programmers) {
+    this.name = name;
+    this.manager = manager;
+    this.programmers = List.of(programmers);
 
-     public void assignTasks(List<Task> tasks) {
-          if (isProgrammersListEmpty()) {
-               return;
-          }
+    this.programmers.forEach(programmer -> programmer.setHourlyRate(hourlyRateForProgrammers));
+  }
 
-          IntStream.range(0, tasks.size())
-                  .forEach(i -> assignAndLogTask(i, tasks.get(i)));
-     }
+  /**
+   * Метод - Работа на неделю.
+   *
+   * @param tasks список задач
+   */
+  public void weeklyWork(@NonNull Task... tasks) {
+    int i = 0;
+    for (Task task : tasks) {
+      if (i == programmers.size()) {
+        i = 0;
+      }
+      Programmer programmer = programmers.get(i);
+      programmer.acceptTask(task);
+      System.out.printf("%s - сделана.\n", task.getDescription());
 
-     /**
-      * Выплата ЗП на основе табеля учета рабочего времени
-      */
+      addRecordToTimesheet(programmer, task.getHoursOfLabor());
+      addRecordToTimesheet(manager, task.getHoursOfLabor().multiply(RATIO_LABOR_COST_MANAGER));
 
-     public void payEmployees() {
-          if (timesheet.isEmpty()) {
-               System.out.println("Табель учета времени пуст.");
-               return;
-          }
+      listCompletedTasksByProgrammers.put(programmer, task);
+      i++;
+    }
+  }
 
-          timesheet.forEach((employee, hours) -> {
-               BigDecimal earnings = employee.getHourlyRate().multiply(BigDecimal.valueOf(hours));
-               employee.addEarnings(earnings);
-               totalExpenses = totalExpenses.add(earnings);
-               System.out.println(employee.getName() + " получил " + earnings + " рублей.");
-          });
+  /**
+   * Метод добавления записи в табель учета времени.
+   *
+   * @param employee     работник
+   * @param hoursOfLabor часы трудозатрат
+   */
+  private void addRecordToTimesheet(Employee employee, BigDecimal hoursOfLabor) {
+    timesheet.merge(employee, hoursOfLabor, BigDecimal::add);
+  }
 
-          timesheet.clear();
-          System.out.println("Табель учета времени обнулен.");
-     }
-     //5.5. Создать функцию "инфо о компании". Печатает информацию:
-     //"
-     //[имя компании]
-     //Затраты: [сумма затрат до 2х знаков после запятой]
-     //Список выполненных задач у компании:
-     //[ФИО программиста] - [список задач]
-     //[ФИО программиста] - [список задач]
-     //"
+  /**
+   * Метод выплаты работникам за неделю.
+   */
+  public void paysForWeekOfWork() {
+    timesheet.forEach(
+        (employee, amountOfHours) -> {
+          BigDecimal payment = amountOfHours.multiply(employee.getHourlyRate());
+          employee.setAmountOfMoneyEarned(payment);
+          totalExpenses = totalExpenses.add(payment);
+        });
+    timesheet.clear();
+  }
 
-     public void info() {
-          System.out.printf("%s%nЗатраты: %.2f%n", name, totalExpenses);
-          System.out.println("Список выполненных задач у компании:");
+  /**
+   * Метод - инфо о компании.
+   */
+  public void infoAboutCompany() {
+    System.out.printf("%s\nЗатраты: %.2f\nСписок выполненных задач у компании:\n",
+        name, totalExpenses);
+    listCompletedTasksByProgrammers.keySet()
+        .forEach((programmer) ->
+            System.out.printf("%s - %s\n",
+                programmer.getFullName(),
+                joinListOfTasksToString(programmer))
+        );
+  }
 
-          programmers.forEach(programmer -> {
-               String completedTasks = getCompletedTasks(programmer);
-               System.out.printf("%s %s - %s%n", programmer.getName(), programmer.getSurname(), completedTasks);
-          });
-     }
-
-     private String getCompletedTasks(Programmer programmer) {
-          return tasks.get(programmer).stream()
-                  .filter(task -> task.getStatus() == TaskStatus.COMPLETED)
-                  .map(task -> task.getDescription())
-                  .collect(Collectors.joining(", "));
-     }
-
-
-     private boolean isProgrammersListEmpty() {
-          if (programmers == null || programmers.isEmpty()) {
-               System.out.println("Нет программистов для выполнения задач.");
-               return true;
-          }
-          return false;
-     }
-
-     /**
-      * Назначает задачу программисту и логирует выполнение
-      */
-
-     private void assignAndLogTask(int index, Task task) {
-          Programmer programmer = programmers.get(index % programmers.size());
-          programmer.acceptTask(task);
-          System.out.println(task.getDescription() + " - сделана.");
-
-          updateTimesheet(programmer, task);
-
-          task.setStatus(TaskStatus.COMPLETED);
-     }
-
-     /**
-      * Обновляет табель учета рабочего времени для программиста и менеджера
-      */
-
-     private void updateTimesheet(Programmer programmer, Task task) {
-          int hoursSpent = task.getHoursSpent();
-          timesheet.put(programmer, hoursSpent);
-          System.out.println(programmer.getName() + " добавил " + hoursSpent + " часов к табелю.");
-
-          int managerHours = (int) (hoursSpent * 0.1);
-          timesheet.put(manager, managerHours);
-          System.out.println(manager.getName() + " добавил " + managerHours + " часов к табелю.");
-     }
+  /**
+   * Метод - объединяет список задач выполненный программистом в строку.
+   */
+  private String joinListOfTasksToString(Programmer programmer) {
+    return listCompletedTasksByProgrammers.get(programmer).stream()
+        .map(Task::getDescription)
+        .collect(Collectors.joining(", "));
+  }
 }

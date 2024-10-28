@@ -1,5 +1,6 @@
 package org.javaacademy.task;
 
+import java.math.BigDecimal;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +17,7 @@ import lombok.experimental.FieldDefaults;
 public class Task {
 
   final String description;
-  final int hoursSpent;
+  final BigDecimal hoursOfLabor;
   @Setter
   TaskStatus status = TaskStatus.NOT_COMPLETED;
 }
