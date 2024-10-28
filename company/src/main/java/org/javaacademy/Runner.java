@@ -10,7 +10,6 @@ import org.javaacademy.task.Task;
  * Класс Runner.
  */
 public class Runner {
-
   /**
    * Метод входа в программу.
    *

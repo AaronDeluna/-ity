@@ -4,8 +4,8 @@ import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 import lombok.AccessLevel;
-import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
@@ -19,7 +19,6 @@ import org.javaacademy.task.Task;
 /**
  * Класс Компания.
  */
-@Getter
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Company {
 
@@ -39,7 +38,7 @@ public class Company {
    * Конструктор класса Company.
    *
    * @param name                     имя компании
-   * @param manager                  манеджер
+   * @param manager                  менеджер
    * @param programmers              список программистов
    * @param hourlyRateForProgrammers единая часовая ставка для программистов
    */
@@ -116,9 +115,8 @@ public class Company {
    * Метод - объединяет список задач выполненный программистом в строку.
    */
   private String joinListOfTasksToString(Programmer programmer) {
-    return String.join(", ",
-        listCompletedTasksByProgrammers.get(programmer).stream()
-            .map(Task::getDescription)
-            .toList());
+    return listCompletedTasksByProgrammers.get(programmer).stream()
+        .map(Task::getDescription)
+        .collect(Collectors.joining(", "));
   }
 }
