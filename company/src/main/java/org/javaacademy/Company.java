@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
@@ -19,6 +20,7 @@ import org.javaacademy.task.Task;
 /**
  * Класс Компания.
  */
+@Getter
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Company {
 
@@ -88,6 +90,7 @@ public class Company {
    * Метод выплаты работникам за неделю.
    */
   public void paysForWeekOfWork() {
+    totalExpenses = BigDecimal.ZERO;
     timesheet.forEach(
         (employee, amountOfHours) -> {
           BigDecimal payment = amountOfHours.multiply(employee.getHourlyRate());
