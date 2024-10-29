@@ -23,12 +23,13 @@ import org.javaacademy.entity.MaritalStatus;
  * класс ЗАГС.
  */
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
-@Getter
 public class CivilRegistry {
 
+  @Getter
   @NonNull
   final String name;
   final Map<LocalDate, List<CivilActionRecord>> civilActionRecords = new TreeMap<>();
+
   public CivilRegistry(String name) {
     this.name = name;
   }
@@ -117,7 +118,8 @@ public class CivilRegistry {
    * @param date Дата для вывода статистики.
    */
   public void statisticsForDate(LocalDate date) {
-    Map<CivilActionType, Long> countCivilActionByType = civilActionRecords.get(date).stream()
+    Map<CivilActionType, Long> countCivilActionByType = getCivilActionRecordsOnDate(date)
+        .stream()
         .collect(Collectors.groupingBy(
             CivilActionRecord::getCivilActionType,
             Collectors.counting()
@@ -140,5 +142,15 @@ public class CivilRegistry {
         countCivilAction.getOrDefault(WEDDING_REGISTRATION, 0L),
         countCivilAction.getOrDefault(DIVORCE_REGISTRATION, 0L),
         countCivilAction.getOrDefault(BIRTH_REGISTRATION, 0L));
+  }
+
+  /**
+   * Метод получения списка записей на указанную дату.
+   *
+   * @param date дата
+   * @return возвращает список записей
+   */
+  public List<CivilActionRecord> getCivilActionRecordsOnDate(LocalDate date) {
+    return civilActionRecords.getOrDefault(date, new ArrayList<>());
   }
 }
