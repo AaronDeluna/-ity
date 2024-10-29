@@ -1,5 +1,4 @@
 package org.javaacademy;
-
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
@@ -24,15 +23,12 @@ public class Company {
      String name;
      @NonNull
      Manager manager;
-     private static final BigDecimal MANAGER_RATIO = new BigDecimal("0.1");
+     static final BigDecimal MANAGER_RATIO = new BigDecimal("0.1");
      @NonNull
      List<Programmer> programmers;
      MultiValuedMap<Programmer, Task> completedTasks;
      Map<Employee, BigDecimal> timesheet;
-     BigDecimal totalCosts;
-     //private static final Logger logger = LoggerFactory.getLogger(Company.class);
-
-     /**
+     BigDecimal totalCosts;     /**
       * Конструктор
       * @param name           имя компании
       * @param manager        Менеджер компании
@@ -56,7 +52,7 @@ public class Company {
       * @param tasks     список заданий для программистов.
       *   Распределяет по очереди задачи и вызывает метод assignAndPrintTask
       */
-     public void WeeklyWork(List<Task> tasks) {
+     public void weeklyWork(List<Task> tasks) {
           IntStream.range(0, tasks.size())
                   .forEach(i -> assignAndPrintTask(i, tasks.get(i)));
      }
@@ -68,15 +64,14 @@ public class Company {
           timesheet.forEach((employee, hours) -> {
                BigDecimal earnings = employee.getHourlyRate().multiply(hours);
                employee.addEarnings(earnings);
-
-               log.debug(employee.getFullName() + " ставка:" + employee.getHourlyRate().toString() + "\t" + hours.toString() + "\t"
-                       + employee.getEarnedAmount());
-
-               totalCosts = ((totalCosts ==null) ? BigDecimal.ZERO : totalCosts).add(earnings);
+               totalCosts = ((totalCosts == null) ? BigDecimal.ZERO : totalCosts).add(earnings);
           });
           timesheet.clear();
      }
 
+     /**
+      * метод вывода информации о компании
+      */
      public void printCompanyInfo() {
           System.out.printf("%s%nЗатраты: %.2f%n", name, totalCosts);
           System.out.println("Список выполненных задач у компании:");
@@ -87,7 +82,7 @@ public class Company {
      }
 
      /**
-      * Метод вывода списка выполненны задач для программиста
+      * Метод вывода списка выполненных задач для программиста
       * @param programmer          Программист
       * @return                     строка с выполненными заданиями через запятую
       */
@@ -113,6 +108,11 @@ public class Company {
           task.setStatus(TaskStatus.COMPLETED);
      }
 
+     /**
+      * Метод обновления списка выполненных задач
+      * @param programmer     Программист
+      * @param task           Задание
+      */
      private void updateCompletedTasks(Programmer programmer, Task task) {
           completedTasks.put(programmer, task);
      }
@@ -122,11 +122,8 @@ public class Company {
       * Добавляет время выполненного задания.
       */
      private void updateTimesheet(Programmer programmer, Task task) {
-          timesheet.put(programmer, timesheet.getOrDefault(programmer, BigDecimal.ZERO).add(task.getHoursSpent()));;
-
-          log.debug(programmer.getName() + " добавил " + task.getHoursSpent() + " часов к табелю.");
-          timesheet.put(manager,  timesheet.getOrDefault(programmer, BigDecimal.ZERO).add(task.getHoursSpent()));
-
-          log.debug(manager.getName() + " добавил " + task.getHoursSpent().multiply(MANAGER_RATIO));
+          timesheet.put(programmer, timesheet.getOrDefault(programmer, BigDecimal.ZERO).add(task.getHoursSpent()));
+          timesheet.put(manager,  timesheet.getOrDefault(manager, BigDecimal.ZERO)
+                  .add(task.getHoursSpent().multiply(MANAGER_RATIO)));
      }
 }
