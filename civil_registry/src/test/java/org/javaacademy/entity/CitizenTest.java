@@ -38,4 +38,17 @@ class CitizenTest {
         child = child.produceChild("Иван", "Милованов", "Александрович", Gender.MALE, secondParent);
         Assertions.assertEquals(secondParent, child.getMother());
     }
+
+    @DisplayName("Успешно выбрасывает исключенеи при передачи имени как null")
+    @Test
+    void shouldThrowNullPointerExceptionWhenAnyArgumentIsNull() {
+        Assertions.assertThrows(NullPointerException.class,
+                () -> secondParent.produceChild(
+                        null,
+                        "Милованов",
+                        "Александрович",
+                        Gender.MALE,
+                        secondParent)
+        );
+    }
 }
