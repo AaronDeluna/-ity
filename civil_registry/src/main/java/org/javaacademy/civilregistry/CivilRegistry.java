@@ -12,23 +12,24 @@ import java.util.Map;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
 import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.NonNull;
 import lombok.experimental.FieldDefaults;
 import org.javaacademy.entity.Citizen;
 import org.javaacademy.entity.CivilActionRecord;
 import org.javaacademy.entity.MaritalStatus;
-import org.javaacademy.validation.CivilRegistryValidation;
 
 /**
  * класс ЗАГС.
  */
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
+@Getter
 public class CivilRegistry {
 
-  String name;
-  Map<LocalDate, List<CivilActionRecord>> civilActionRecords = new TreeMap<>();
-
-  public CivilRegistry(@NonNull String name) {
+  @NonNull
+  final String name;
+  final Map<LocalDate, List<CivilActionRecord>> civilActionRecords = new TreeMap<>();
+  public CivilRegistry(String name) {
     this.name = name;
   }
 
@@ -42,8 +43,6 @@ public class CivilRegistry {
    */
   public void birthOfChild(Citizen child, Citizen firstParent, Citizen secondParent,
       LocalDate date) {
-    CivilRegistryValidation.checkOnOppositeGender(firstParent, secondParent);
-    CivilRegistryValidation.validateParentChildConnection(child, firstParent, secondParent);
     CivilActionRecord record = new CivilActionRecord(
         date,
         BIRTH_REGISTRATION,
@@ -60,8 +59,6 @@ public class CivilRegistry {
    * @throws IllegalArgumentException если один из супругов уже состоит в браке.
    */
   public void registrationMarriage(Citizen firstCitizen, Citizen secondCitizen, LocalDate date) {
-    CivilRegistryValidation.checkOnOppositeGender(firstCitizen, secondCitizen);
-    CivilRegistryValidation.checkOnNotMarriedStatus(firstCitizen, secondCitizen);
     CivilActionRecord record = new CivilActionRecord(
         date,
         WEDDING_REGISTRATION,
@@ -88,8 +85,6 @@ public class CivilRegistry {
    * @throws IllegalArgumentException если один из супругов уже разведён или не может развестись.
    */
   public void registrationDivorce(Citizen firstCitizen, Citizen secondCitizen, LocalDate date) {
-    CivilRegistryValidation.checkOnOppositeGender(firstCitizen, secondCitizen);
-    CivilRegistryValidation.checkOnMarriedStatus(firstCitizen, secondCitizen);
     CivilActionRecord record = new CivilActionRecord(
         date,
         DIVORCE_REGISTRATION,

@@ -7,7 +7,6 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.javaacademy.civilregistry.CivilActionType;
-import org.javaacademy.human.Human;
 
 /**
  * Сущность Запись гражданского действия.
@@ -19,5 +18,5 @@ public class CivilActionRecord {
 
   LocalDate date;
   CivilActionType civilActionType;
-  List<Human> citizens;
+  List<Citizen> citizens;
 }
