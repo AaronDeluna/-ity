@@ -108,7 +108,7 @@ public class Human {
   /**
    * Метод, проверяющий родителей на противоположность полов.
    */
-  private void checkOnOppositeGender(Human secondParent) {
+  protected void checkOnOppositeGender(Human secondParent) {
     if (this.gender == secondParent.gender) {
       throw new IllegalArgumentException("Родители должны быть противоположных полов!");
     }
