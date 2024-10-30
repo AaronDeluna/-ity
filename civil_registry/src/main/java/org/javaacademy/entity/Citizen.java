@@ -37,6 +37,7 @@ public class Citizen extends Human {
     @Override
     public Citizen produceChild(String name, String surname,
                                 String patronymic, Gender gender, Human secondParent) {
+        this.checkOnOppositeGender(secondParent);
         Citizen child = new Citizen(name, surname, patronymic, gender);
         child.setParents(this, secondParent);
         return child;

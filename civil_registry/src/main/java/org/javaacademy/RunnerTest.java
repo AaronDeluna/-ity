@@ -43,6 +43,7 @@ public class RunnerTest {
     //civilRegistry.birthOfChild(child2, citizen3, citizen1, LocalDate.now());
 
     civilRegistry.statisticsForDate(LocalDate.now());
+    civilRegistry.statisticsForDate(LocalDate.of(2013, 3, 10));
 
   }
 }
