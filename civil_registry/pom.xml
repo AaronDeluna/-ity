@@ -40,9 +40,10 @@
       <id>prom</id>
       <properties>
         <skipTests>false</skipTests>
+        <profileName>PROM</profileName>
       </properties>
       <build>
-        <finalName>civil_registry_app_PROM</finalName>
+        <finalName>civil_registry_app_${profileName}</finalName>
         <plugins>
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
@@ -64,9 +65,10 @@
       <id>test</id>
       <properties>
         <skipTests>false</skipTests>
+        <profileName>TEST</profileName>
       </properties>
       <build>
-        <finalName>civil_registry_app_TEST</finalName>
+        <finalName>civil_registry_app_${profileName}</finalName>
         <plugins>
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
