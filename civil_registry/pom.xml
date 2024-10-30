@@ -28,6 +28,7 @@
     <dependency>
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>
+      <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>org.junit.jupiter</groupId>
@@ -35,13 +36,7 @@
     </dependency>
   </dependencies>
 
-  <profiles>
-    <profile>
-      <id>prom</id>
-      <properties>
-        <skipTests>false</skipTests>
-        <profileName>PROM</profileName>
-      </properties>
+
       <build>
         <finalName>civil_registry_app_${profileName}</finalName>
         <plugins>
@@ -52,51 +47,29 @@
               <archive>
                 <manifest>
                   <addClasspath>true</addClasspath>
-                  <mainClass>org.javaacademy.RunnerProm</mainClass>
+                  <mainClass>${runnerClass}</mainClass>
                 </manifest>
               </archive>
+              <descriptorRefs>
+                <descriptorRef>jar-with-dependencies</descriptorRef>
+              </descriptorRefs>
+              <appendAssemblyId>false</appendAssemblyId>
             </configuration>
+            <executions>
+              <execution>
+                <id>assemble-all</id>
+                <phase>package</phase>
+                <goals>
+                  <goal>single</goal>
+                </goals>
+              </execution>
+            </executions>
           </plugin>
-        </plugins>
-      </build>
-    </profile>
-
-    <profile>
-      <id>test</id>
-      <properties>
-        <skipTests>false</skipTests>
-        <profileName>TEST</profileName>
-      </properties>
-      <build>
-        <finalName>civil_registry_app_${profileName}</finalName>
-        <plugins>
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-assembly-plugin</artifactId>
-            <configuration>
-              <archive>
-                <manifest>
-                  <addClasspath>true</addClasspath>
-                  <mainClass>org.javaacademy.RunnerTest</mainClass>
-                </manifest>
-              </archive>
-            </configuration>
-          </plugin>
-        </plugins>
-      </build>
-    </profile>
-  </profiles>
-
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-surefire-plugin</artifactId>
-      </plugin>
       <plugin>
         <groupId>org.jacoco</groupId>
         <artifactId>jacoco-maven-plugin</artifactId>
       </plugin>
     </plugins>
   </build>
+
 </project>

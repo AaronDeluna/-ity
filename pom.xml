@@ -127,4 +127,21 @@
       </plugin>
     </plugins>
   </build>
+
+  <profiles>
+    <profile>
+      <id>prom</id>
+      <properties>
+        <profileName>prom</profileName>
+        <runnerClass>org.javaacademy.RunnerProm</runnerClass>
+      </properties>
+    </profile>
+    <profile>
+      <id>test</id>
+      <properties>
+        <profileName>test</profileName>
+        <runnerClass>org.javaacademy.RunnerTest</runnerClass>
+      </properties>
+    </profile>
+  </profiles>
 </project>
