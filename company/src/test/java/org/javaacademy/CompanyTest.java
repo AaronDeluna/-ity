@@ -1,24 +1,24 @@
 package org.javaacademy;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+import java.math.BigDecimal;
 import org.javaacademy.employee.Manager;
 import org.javaacademy.employee.Programmer;
 import org.javaacademy.task.Task;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
-import java.math.BigDecimal;
-
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
 @DisplayName("Тестирование компании")
 class CompanyTest {
+
   Company company;
   Manager manager;
   Programmer programmer1;
@@ -35,7 +35,8 @@ class CompanyTest {
     when(programmer1.getFullName()).thenReturn("Иванов Иван Иванович");
     when(programmer2.getFullName()).thenReturn("Росиец Тарас Дмитриевич");
 
-    company = new Company("Тестовая компания", manager, BigDecimal.valueOf(1500), programmer1, programmer2);
+    company = new Company("Тестовая компания", manager, BigDecimal.valueOf(1500), programmer1,
+        programmer2);
 
     task1 = Mockito.mock(Task.class);
     task2 = Mockito.mock(Task.class);
@@ -44,23 +45,12 @@ class CompanyTest {
     when(task2.getDescription()).thenReturn("Задача 2");
     when(task1.getHoursOfLabor()).thenReturn(BigDecimal.valueOf(5));
     when(task2.getHoursOfLabor()).thenReturn(BigDecimal.valueOf(8));
+    company.weeklyWork(task1, task2);
   }
 
-  @AfterEach
-  void tearDown() {
-    company = null;
-    manager = null;
-    programmer1 = null;
-    programmer2 = null;
-    task1 = null;
-    task2 = null;
-  }
-
-  @DisplayName("Успеншное выполнение метода задачи работы на неделю")
+  @DisplayName("Успешное выполнение метода задачи работы на неделю")
   @Test
   void weeklyWork() {
-    company.weeklyWork(task1, task2);
-
     verify(programmer1).acceptTask(task1);
     verify(programmer2).acceptTask(task2);
 
@@ -71,8 +61,6 @@ class CompanyTest {
   @DisplayName("Успешная выплата работникам за неделю")
   @Test
   void paysForWeekOfWork() {
-    company.weeklyWork(task1, task2);
-
     when(programmer1.getHourlyRate()).thenReturn(BigDecimal.valueOf(1500));
     when(programmer2.getHourlyRate()).thenReturn(BigDecimal.valueOf(1500));
     when(manager.getHourlyRate()).thenReturn(BigDecimal.valueOf(10_000));
@@ -88,7 +76,6 @@ class CompanyTest {
   @DisplayName("Успешный вывод информации о компании")
   @Test
   void infoAboutCompany() {
-    company.weeklyWork(task1, task2);
     ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
     System.setOut(new PrintStream(outputStream));
 
