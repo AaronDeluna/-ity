@@ -1,0 +1,92 @@
+[INFO] Scanning for projects...
+[INFO] ------------------------------------------------------------------------
+[INFO] Reactor Build Order:
+[INFO]
+[INFO] city                                                               [pom]
+[INFO] human                                                              [jar]
+[INFO] civil_registry                                                     [jar]
+[INFO] profession                                                         [jar]
+[INFO] company                                                            [jar]
+[INFO]
+[INFO] ------------------------< org.javaacademy:city >------------------------
+[INFO] Building city 1.0.0                                                [1/5]
+[INFO]   from pom.xml
+[INFO] --------------------------------[ pom ]---------------------------------
+[INFO]
+[INFO] --- dependency:3.7.0:tree (default-cli) @ city ---
+[INFO] org.javaacademy:city:pom:1.0.0
+[INFO]
+[INFO] -----------------------< org.javaacademy:human >------------------------
+[INFO] Building human 1.0.0                                               [2/5]
+[INFO]   from human\pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO]
+[INFO] --- dependency:3.7.0:tree (default-cli) @ human ---
+[INFO] org.javaacademy:human:jar:1.0.0
+[INFO] +- org.projectlombok:lombok:jar:1.18.34:provided
+[INFO] \- org.apache.commons:commons-lang3:jar:3.14.0:compile
+[INFO]
+[INFO] -------------------< org.javaacademy:civil_registry >-------------------
+[INFO] Building civil_registry 1.0.0                                      [3/5]
+[INFO]   from civil_registry\pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO]
+[INFO] --- dependency:3.7.0:tree (default-cli) @ civil_registry ---
+[INFO] org.javaacademy:civil_registry:jar:1.0.0
+[INFO] +- org.javaacademy:human:jar:1.0.0:compile
+[INFO] |  \- org.apache.commons:commons-lang3:jar:3.14.0:compile
+[INFO] +- org.projectlombok:lombok:jar:1.18.34:provided
+[INFO] \- org.junit.jupiter:junit-jupiter:jar:5.11.3:test
+[INFO]    +- org.junit.jupiter:junit-jupiter-api:jar:5.11.3:test
+[INFO]    |  +- org.opentest4j:opentest4j:jar:1.3.0:test
+[INFO]    |  +- org.junit.platform:junit-platform-commons:jar:1.11.3:test
+[INFO]    |  \- org.apiguardian:apiguardian-api:jar:1.1.2:test
+[INFO]    +- org.junit.jupiter:junit-jupiter-params:jar:5.11.3:test
+[INFO]    \- org.junit.jupiter:junit-jupiter-engine:jar:5.11.3:test
+[INFO]       \- org.junit.platform:junit-platform-engine:jar:1.11.3:test
+[INFO]
+[INFO] ---------------------< org.javaacademy:profession >---------------------
+[INFO] Building profession 1.1.0                                          [4/5]
+[INFO]   from profession\pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO]
+[INFO] --- dependency:3.7.0:tree (default-cli) @ profession ---
+[INFO] org.javaacademy:profession:jar:1.1.0
+[INFO] +- org.javaacademy:human:jar:1.0.0:compile
+[INFO] \- org.projectlombok:lombok:jar:1.18.34:provided
+[INFO]
+[INFO] ----------------------< org.javaacademy:company >-----------------------
+[INFO] Building company 1.0.0                                             [5/5]
+[INFO]   from company\pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO]
+[INFO] --- dependency:3.7.0:tree (default-cli) @ company ---
+[INFO] org.javaacademy:company:jar:1.0.0
+[INFO] +- org.javaacademy:profession:jar:1.1.0:compile
+[INFO] |  \- org.javaacademy:human:jar:1.0.0:compile
+[INFO] +- org.projectlombok:lombok:jar:1.18.34:provided
+[INFO] +- org.apache.commons:commons-collections4:jar:4.4:compile
+[INFO] +- org.mockito:mockito-junit-jupiter:jar:5.14.2:test
+[INFO] |  +- org.mockito:mockito-core:jar:5.14.2:test
+[INFO] |  |  +- net.bytebuddy:byte-buddy:jar:1.15.4:test
+[INFO] |  |  +- net.bytebuddy:byte-buddy-agent:jar:1.15.4:test
+[INFO] |  |  \- org.objenesis:objenesis:jar:3.3:test
+[INFO] |  \- org.junit.jupiter:junit-jupiter-api:jar:5.11.2:test
+[INFO] |     +- org.opentest4j:opentest4j:jar:1.3.0:test
+[INFO] |     +- org.junit.platform:junit-platform-commons:jar:1.11.2:test
+[INFO] |     \- org.apiguardian:apiguardian-api:jar:1.1.2:test
+[INFO] \- org.apache.commons:commons-lang3:jar:3.14.0:compile
+[INFO] ------------------------------------------------------------------------
+[INFO] Reactor Summary:
+[INFO]
+[INFO] city 1.0.0 ......................................... SUCCESS [  1.038 s]
+[INFO] human 1.0.0 ........................................ SUCCESS [  0.050 s]
+[INFO] civil_registry 1.0.0 ............................... SUCCESS [  0.057 s]
+[INFO] profession 1.1.0 ................................... SUCCESS [  0.011 s]
+[INFO] company 1.0.0 ...................................... SUCCESS [  0.079 s]
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  1.610 s
+[INFO] Finished at: 2024-10-31T21:00:47+07:00
+[INFO] ------------------------------------------------------------------------
